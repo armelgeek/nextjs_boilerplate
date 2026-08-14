@@ -1,7 +1,7 @@
 'use server';
 
 import { CrudListResponse, CrudListOptions } from '@/types/crud';
-import { listRoles } from './list-role';
+import { listRoles } from './list-roles';
 
 export interface Role {
   id: string;

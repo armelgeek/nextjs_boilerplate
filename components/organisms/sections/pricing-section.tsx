@@ -1,5 +1,5 @@
 import { getActivePlans } from "@/actions/payments/get-plans";
-import { PricingCards } from "./pricing-cards";
+import { PricingCards } from '@/components/molecules/cards/pricing-cards';
 
 interface PricingSectionProps {
   isLoggedIn: boolean;

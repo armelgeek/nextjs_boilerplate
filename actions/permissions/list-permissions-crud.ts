@@ -1,7 +1,7 @@
 'use server';
 
 import { CrudListResponse, CrudListOptions } from '@/types/crud';
-import { listPermissions } from './list-permission';
+import { listPermissions } from './list-permissions';
 
 export interface Permission {
   id: string;

@@ -1,7 +1,7 @@
 'use server';
 
 import { CrudListResponse, CrudListOptions } from '@/types/crud';
-import { listBlogs } from './list-blog';
+import { listBlogs } from './list-blogs';
 
 export interface Blog {
   id: string;
