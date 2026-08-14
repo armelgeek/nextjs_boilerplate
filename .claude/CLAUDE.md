@@ -91,9 +91,9 @@ Required variables in `.env.local`:
 # Database
 DATABASE_URL="postgresql://..."
 
-# Auth
-NEXTAUTH_SECRET="..."
-NEXTAUTH_URL="http://localhost:3000"
+# Auth (better-auth)
+AUTH_SECRET="..."
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
 # Stripe
 STRIPE_SECRET_KEY="sk_..."
@@ -138,8 +138,8 @@ const user = await db.user.findUnique({ where: { id } })
 
 ## Authentication
 
-- **Provider**: better-auth
-- **Session**: Database-backed
+- **Provider**: better-auth (not NextAuth)
+- **Session**: Database-backed with better-auth
 - **Verification**: Email OTP + 2FA support
 - **Authorization**: Role-based permissions (RBAC)
 
