@@ -10,8 +10,8 @@ import {
   type Icon,
 } from "@tabler/icons-react"
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from "@/components/molecules/navigation/nav-main"
+import { NavUser } from "@/components/molecules/navigation/nav-user"
 import {
   Sidebar,
   SidebarContent,
@@ -21,7 +21,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Logo } from "@/components/logo"
+import { Logo } from "@/components/atoms/icons/logo"
 
 const iconMap: Record<string, Icon> = {
   dashboard: IconDashboard,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Logo } from "@/components/logo";
+import { Logo } from "@/components/atoms/icons/logo";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,7 +17,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { signOut } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { User, CreditCard, LogOut, LayoutDashboard, Menu, X } from "lucide-react";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/atoms/buttons/theme-toggle";
 
 interface HeaderProps {
   user?: {
