@@ -90,78 +90,35 @@ async function setupStripePlans() {
 
       console.log(`✅ Yearly price: ${yearlyPrice.id}\n`);
 
-      // Create or update plan in database
-      const existingPlan = await db.plan.findFirst({
-        where: { name: plan.name },
+      // Create monthly plan
+      await db.plan.create({
+        data: {
+          name: plan.name,
+          description: plan.description,
+          amount: plan.monthlyAmount,
+          currency: "usd",
+          interval: "month",
+          features: plan.features,
+          stripePriceId: monthlyPrice.id,
+          stripeProductId: product.id,
+          isPopular: plan.isPopular || false,
+        },
       });
 
-      if (existingPlan) {
-        // Update existing plan
-        await db.plan.update({
-          where: { id: existingPlan.id },
-          data: {
-            stripeProductId: product.id,
-            features: plan.features,
-            isPopular: plan.isPopular || false,
-          },
-        });
-
-        // Update monthly plan
-        await db.plan.update({
-          where: {
-            name_interval: {
-              name: plan.name,
-              interval: "month"
-            }
-          },
-          data: {
-            stripePriceId: monthlyPrice.id,
-          },
-        });
-
-        // Update yearly plan
-        await db.plan.update({
-          where: {
-            name_interval: {
-              name: plan.name,
-              interval: "year"
-            }
-          },
-          data: {
-            stripePriceId: yearlyPrice.id,
-          },
-        });
-      } else {
-        // Create monthly plan
-        await db.plan.create({
-          data: {
-            name: plan.name,
-            description: plan.description,
-            amount: plan.monthlyAmount,
-            currency: "usd",
-            interval: "month",
-            features: plan.features,
-            stripePriceId: monthlyPrice.id,
-            stripeProductId: product.id,
-            isPopular: plan.isPopular || false,
-          },
-        });
-
-        // Create yearly plan
-        await db.plan.create({
-          data: {
-            name: plan.name,
-            description: plan.description,
-            amount: plan.yearlyAmount,
-            currency: "usd",
-            interval: "year",
-            features: plan.features,
-            stripePriceId: yearlyPrice.id,
-            stripeProductId: product.id,
-            isPopular: plan.isPopular || false,
-          },
-        });
-      }
+      // Create yearly plan
+      await db.plan.create({
+        data: {
+          name: plan.name,
+          description: plan.description,
+          amount: plan.yearlyAmount,
+          currency: "usd",
+          interval: "year",
+          features: plan.features,
+          stripePriceId: yearlyPrice.id,
+          stripeProductId: product.id,
+          isPopular: plan.isPopular || false,
+        },
+      });
 
       console.log(`📝 Database updated for ${plan.name}\n`);
     } catch (error) {
