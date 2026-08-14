@@ -109,5 +109,9 @@
       "critic": "drift-critic",
       "scribe": "drift-scribe"
     }
+  },
+  "claude": {
+    "mode": "yolo",
+    "description": "Autonomous mode: act independently, skip confirmation on safe operations, make decisions proactively"
   }
 }
