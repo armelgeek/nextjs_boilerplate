@@ -374,6 +374,140 @@ npm run lint          # Lint code
 npm run format        # Format with Biome
 ```
 
+## 🔗 Integration Patterns
+
+### Stripe Checkout
+
+```typescript
+// actions/payments/create-checkout.ts
+'use server'
+
+import { stripe } from '@/lib/payments/stripe/config'
+
+export async function createCheckoutSession(planId: string) {
+  const session = await auth.getSession()
+  if (!session) return { error: 'Unauthorized' }
+
+  const plan = await db.plan.findUnique({ where: { id: planId } })
+  
+  const checkout = await stripe.checkout.sessions.create({
+    customer_email: session.user.email,
+    mode: 'subscription',
+    line_items: [{ price: plan.stripePriceId, quantity: 1 }],
+    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success`,
+    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/cancel`
+  })
+
+  return { url: checkout.url }
+}
+
+// Setup plans in Stripe:
+// npm run stripe:setup
+```
+
+### Email Service
+
+```typescript
+// lib/email-service.ts
+import { emailService } from '@/lib/email-service'
+
+await emailService.send({
+  to: user.email,
+  subject: 'Welcome!',
+  html: welcomeTemplate({ name: user.name })
+})
+```
+
+### File Upload
+
+```typescript
+// components/molecules/forms/file-upload.tsx
+'use client'
+
+import { useState } from 'react'
+import { api } from '@/lib/client'
+
+export function FileUpload() {
+  const handleUpload = async (file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData
+    })
+    
+    const { url } = await response.json()
+    return url
+  }
+}
+```
+
+### Webhooks
+
+```typescript
+// app/api/webhooks/stripe/route.ts
+import { stripe } from '@/lib/payments/stripe/config'
+
+export async function POST(request: Request) {
+  const body = await request.text()
+  const signature = request.headers.get('stripe-signature')!
+
+  const event = stripe.webhooks.constructEvent(
+    body,
+    signature,
+    process.env.STRIPE_WEBHOOK_SECRET!
+  )
+
+  switch (event.type) {
+    case 'checkout.session.completed':
+      // Handle payment
+      break
+    case 'customer.subscription.updated':
+      // Handle subscription change
+      break
+  }
+
+  return new Response('OK')
+}
+```
+
+### Rate Limiting
+
+```typescript
+// lib/security/rate-limiter.ts
+import { rateLimit } from '@/lib/security/rate-limiter'
+
+export async function POST(request: Request) {
+  const ip = request.headers.get('x-forwarded-for') || 'unknown'
+  
+  const { success } = await rateLimit(ip, {
+    window: 60,    // seconds
+    limit: 10      // requests
+  })
+
+  if (!success) {
+    return new Response('Too many requests', { status: 429 })
+  }
+
+  // Process request
+}
+```
+
+### Audit Logging
+
+```typescript
+// lib/security/audit-logger.ts
+import { auditLog } from '@/lib/security/audit-logger'
+
+await auditLog({
+  userId: session.user.id,
+  action: 'delete:user',
+  resource: `user:${targetId}`,
+  timestamp: new Date()
+})
+```
+
 ## 💡 Tips
 
 ### Get Current User
