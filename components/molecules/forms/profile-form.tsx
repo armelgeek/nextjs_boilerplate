@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { z } from "zod";
 import { isValidPhoneNumber, type Value } from "react-phone-number-input";
 import { Mail } from "lucide-react";
+import { api } from "@/lib/client";
 
 const profileSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -90,18 +91,13 @@ export function ProfileForm({ user }: ProfileFormProps) {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/user/profile", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          phone: formData.phone || null,
-        }),
+      const response = await api.patch("/api/user/profile", {
+        name: formData.name,
+        phone: formData.phone || null,
       });
 
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Failed to update profile");
+        throw new Error(response.error || "Failed to update profile");
       }
 
       toast.success("Profile updated successfully");
@@ -131,20 +127,16 @@ export function ProfileForm({ user }: ProfileFormProps) {
     setIsEmailChangeLoading(true);
 
     try {
-      const response = await fetch("/api/user/email-change", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ newEmail: newEmail.trim() }),
+      const response = await api.post("/api/user/email-change", {
+        newEmail: newEmail.trim(),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        setEmailChangeError(data.error || "Failed to request email change");
+        setEmailChangeError(response.error || "Failed to request email change");
         return;
       }
 
-      toast.success(data.message);
+      toast.success((response.data as { message?: string }).message || "Verification email sent");
       setIsEditingEmail(false);
       setNewEmail("");
     } catch (error) {
@@ -185,7 +177,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
             id="name"
             type="text"
             value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setFormData({ ...formData, name: e.target.value })}
             placeholder="Enter your name"
             required
             className={errors.name ? "border-red-500" : ""}
@@ -253,7 +245,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
                   id="new-email"
                   type="email"
                   value={newEmail}
-                  onChange={(e) => {
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
                     setNewEmail(e.target.value);
                     setEmailChangeError("");
                   }}

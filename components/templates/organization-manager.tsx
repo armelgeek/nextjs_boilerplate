@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Building2, Plus, Users, Loader2, Trash2 } from "lucide-react"
 import { toast } from "sonner"
+import { api } from "@/lib/client"
 
 type OrgMember = {
   id: string
@@ -37,9 +38,9 @@ export function OrganizationManager() {
 
   const loadOrganizations = async () => {
     try {
-      const res = await fetch("/api/organizations")
-      const data = await res.json()
-      setOrganizations(data.organizations || [])
+      const res = await api.get("/api/organizations")
+      if (!res.ok) throw new Error(res.error)
+      setOrganizations(res.data.organizations || [])
     } catch {
       toast.error("Failed to load organizations")
     } finally {
@@ -49,9 +50,9 @@ export function OrganizationManager() {
 
   const loadMembers = async (orgId: string) => {
     try {
-      const res = await fetch(`/api/organizations/${orgId}/members`)
-      const data = await res.json()
-      setMembers(data.members || [])
+      const res = await api.get(`/api/organizations/${orgId}/members`)
+      if (!res.ok) throw new Error(res.error)
+      setMembers(res.data.members || [])
     } catch {
       toast.error("Failed to load members")
     }
@@ -68,13 +69,11 @@ export function OrganizationManager() {
     if (!newOrgName.trim()) return
     setIsCreating(true)
     try {
-      const res = await fetch("/api/organizations", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: newOrgName, description: newOrgDesc }),
+      const res = await api.post("/api/organizations", {
+        name: newOrgName,
+        description: newOrgDesc,
       })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error)
+      if (!res.ok) throw new Error(res.error)
       toast.success("Organization created!")
       setShowCreate(false)
       setNewOrgName("")
@@ -90,12 +89,8 @@ export function OrganizationManager() {
   const handleRemoveMember = async (userId: string) => {
     if (!selectedOrg) return
     try {
-      const res = await fetch(`/api/organizations/${selectedOrg.id}/members`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId }),
-      })
-      if (!res.ok) throw new Error("Failed to remove member")
+      const res = await api.delete(`/api/organizations/${selectedOrg.id}/members`, { userId })
+      if (!res.ok) throw new Error(res.error || "Failed to remove member")
       toast.success("Member removed")
       await loadMembers(selectedOrg.id)
     } catch (err: unknown) {
@@ -136,7 +131,7 @@ export function OrganizationManager() {
                 <Input
                   id="org-name"
                   value={newOrgName}
-                  onChange={(e) => setNewOrgName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setNewOrgName(e.target.value)}
                   placeholder="Acme Inc."
                   required
                 />
@@ -146,7 +141,7 @@ export function OrganizationManager() {
                 <Input
                   id="org-desc"
                   value={newOrgDesc}
-                  onChange={(e) => setNewOrgDesc(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setNewOrgDesc(e.target.value)}
                   placeholder="What does your organization do?"
                 />
               </div>

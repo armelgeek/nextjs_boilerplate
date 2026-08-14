@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client"
+import { api } from "@/lib/client"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
@@ -86,21 +87,14 @@ export function ResetPasswordForm({
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/auth/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          newPassword: password,
-          token,
-        }),
+      const result = await api.post('/api/auth/reset-password', {
+        newPassword: password,
+        token,
       })
 
-      const result = await response.json()
-
-      if (!response.ok || result.error) {
-        toast.error(result.error?.message || "Failed to reset password")
+      if (!result.ok) {
+        const errorData = result.data as { error?: { message?: string } }
+        toast.error(errorData.error?.message || result.error || "Failed to reset password")
         setIsLoading(false)
         return
       }

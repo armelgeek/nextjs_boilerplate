@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client"
+import { api } from "@/lib/client"
 import { useState } from "react"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -59,21 +60,14 @@ export function ForgotPasswordForm({
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/auth/forget-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: emailValue,
-          redirectTo: `${window.location.origin}/reset-password`,
-        }),
+      const result = await api.post('/api/auth/forget-password', {
+        email: emailValue,
+        redirectTo: `${window.location.origin}/reset-password`,
       })
 
-      const result = await response.json()
-
-      if (!response.ok || result.error) {
-        toast.error(result.error?.message || "Failed to send reset email")
+      if (!result.ok) {
+        const errorData = result.data as { error?: { message?: string } }
+        toast.error(errorData.error?.message || result.error || "Failed to send reset email")
         setIsLoading(false)
         return
       }

@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { toast } from "sonner"
 import { Key, Copy, Trash2, Plus } from "lucide-react"
+import { api } from "@/lib/client"
 
 interface ApiKey {
   id: string
@@ -27,10 +28,9 @@ export function ApiKeyManager() {
 
   const fetchKeys = async () => {
     try {
-      const res = await fetch("/api/api-keys")
-      if (!res.ok) throw new Error("Failed to fetch")
-      const data = await res.json()
-      setKeys(data.keys)
+      const res = await api.get("/api/api-keys")
+      if (!res.ok) throw new Error(res.error)
+      setKeys((res.data as any).keys)
     } catch {
       toast.error("Failed to load API keys")
     } finally {
@@ -49,14 +49,9 @@ export function ApiKeyManager() {
     }
     setIsCreating(true)
     try {
-      const res = await fetch("/api/api-keys", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: newKeyName }),
-      })
-      if (!res.ok) throw new Error("Failed to create")
-      const data = await res.json()
-      setNewlyCreatedKey(data.key)
+      const res = await api.post("/api/api-keys", { name: newKeyName })
+      if (!res.ok) throw new Error(res.error || "Failed to create")
+      setNewlyCreatedKey((res.data as { key: string }).key)
       setNewKeyName("")
       await fetchKeys()
       toast.success("API key created!")
@@ -69,8 +64,8 @@ export function ApiKeyManager() {
 
   const handleRevokeKey = async (id: string) => {
     try {
-      const res = await fetch(`/api/api-keys?id=${id}`, { method: "DELETE" })
-      if (!res.ok) throw new Error("Failed to revoke")
+      const res = await api.delete(`/api/api-keys?id=${id}`)
+      if (!res.ok) throw new Error(res.error || "Failed to revoke")
       await fetchKeys()
       toast.success("API key revoked")
     } catch {
@@ -126,7 +121,7 @@ export function ApiKeyManager() {
               id="key-name"
               placeholder="Key name (e.g., Production, CI/CD)"
               value={newKeyName}
-              onChange={(e) => setNewKeyName(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setNewKeyName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleCreateKey()}
             />
           </div>
