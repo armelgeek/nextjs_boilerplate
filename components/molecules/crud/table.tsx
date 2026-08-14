@@ -14,7 +14,21 @@ export function CrudTable<T extends { id: string }>({
   emptyMessage = 'No data found',
 }: CrudTableProps<T>) {
   if (isLoading) {
-    return <TableSkeletonRows />;
+    return (
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {columns.map((col) => (
+              <TableHead key={String(col.key)} style={{ width: col.width }}>
+                {col.label}
+              </TableHead>
+            ))}
+            {(onEdit || onDelete) && <TableHead className="text-right">Actions</TableHead>}
+          </TableRow>
+        </TableHeader>
+        <TableSkeletonRows />
+      </Table>
+    );
   }
 
   if (!data || data.length === 0) {
