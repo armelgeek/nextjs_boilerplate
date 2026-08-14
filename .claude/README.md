@@ -1,6 +1,6 @@
-# Mooz Claude Code Setup
+# Claude Code Setup
 
-Complete automation for building Mooz with Claude Code.
+Complete automation for building with Claude Code using Drift framework.
 
 ## What's Included
 
