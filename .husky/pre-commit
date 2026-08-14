@@ -1,0 +1,18 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Lint staged files
+npm run lint 2>/dev/null || {
+  echo "❌ Lint failed. Fix errors and try again."
+  exit 1
+}
+
+# TypeScript check
+npx tsc --noEmit 2>/dev/null || {
+  echo "❌ TypeScript errors. Fix and try again."
+  exit 1
+}
+
+echo "✅ Pre-commit checks passed"
