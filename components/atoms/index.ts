@@ -1,3 +1,3 @@
-export { default as Logo } from './icons/logo';
-export { default as ThemeToggle } from './buttons/theme-toggle';
-export { default as ErrorBoundary } from './loaders/error-boundary';
+export { Logo } from './icons/logo';
+export { ThemeToggle } from './buttons/theme-toggle';
+export { ErrorBoundary } from './loaders/error-boundary';
