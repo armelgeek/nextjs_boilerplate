@@ -207,7 +207,7 @@ export function LoginForm({
                     placeholder="000000"
                     maxLength={6}
                     value={totpCode}
-                    onChange={(e) => setTotpCode(e.target.value.replace(/\D/g, ""))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setTotpCode(e.target.value.replace(/\D/g, ""))}
                     required
                     disabled={isLoading}
                     autoComplete="one-time-code"
@@ -260,7 +260,7 @@ export function LoginForm({
                     placeholder="000000"
                     maxLength={6}
                     value={otp}
-                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setOtp(e.target.value.replace(/\D/g, ''))}
                     required
                     disabled={isLoading}
                     className="text-center text-2xl tracking-widest"

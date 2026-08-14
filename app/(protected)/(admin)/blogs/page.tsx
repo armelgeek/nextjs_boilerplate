@@ -10,7 +10,6 @@ import { useCrudDelete } from '@/hooks/use-crud-delete';
 import { listBlogsCrud, Blog } from '@/actions/blogs/list-blogs-crud';
 import { deleteBlog } from '@/actions/blogs/delete-blog';
 import { formatDate } from '@/lib/utils';
-import { IconEye } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
 const columns: CrudColumn<Blog>[] = [
@@ -22,16 +21,6 @@ const columns: CrudColumn<Blog>[] = [
       <Badge variant={value ? 'default' : 'secondary'}>
         {value ? 'Published' : 'Draft'}
       </Badge>
-    ),
-  },
-  {
-    key: 'views',
-    label: 'Views',
-    render: (value) => (
-      <div className="flex items-center gap-2">
-        <IconEye className="w-4 h-4" />
-        {value}
-      </div>
     ),
   },
   { key: 'slug', label: 'Slug', width: '250px' },
@@ -82,7 +71,7 @@ export default function BlogsPage() {
     handleDeleteClick,
     handleConfirmDelete,
     handleCancelDelete,
-  } = useCrudDelete({
+  } = useCrudDelete<Blog>({
     onDelete: async (blog) => {
       const result = await deleteBlog(blog.id);
       if (!result.success) throw new Error(result.error);

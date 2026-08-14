@@ -99,7 +99,7 @@ export default function UsersPage() {
     handleDeleteClick,
     handleConfirmDelete,
     handleCancelDelete,
-  } = useCrudDelete({
+  } = useCrudDelete<User>({
     onDelete: async (user) => {
       const result = await deleteUser(user.id);
       if (!result.success) throw new Error(result.error);

@@ -70,7 +70,7 @@ export default function RolesPage() {
     handleDeleteClick,
     handleConfirmDelete,
     handleCancelDelete,
-  } = useCrudDelete({
+  } = useCrudDelete<Role>({
     onDelete: async (role) => {
       const result = await deleteRole(role.id);
       if (!result.success) throw new Error(result.error);

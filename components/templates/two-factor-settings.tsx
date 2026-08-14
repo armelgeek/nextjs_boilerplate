@@ -150,7 +150,7 @@ export function TwoFactorSettings() {
                   id="enable-password"
                   type={showPassword ? "text" : "password"}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setPassword(e.target.value)}
                   placeholder="Enter your password"
                   autoComplete="current-password"
                   disabled={isLoading}
@@ -228,7 +228,7 @@ export function TwoFactorSettings() {
                 <Input
                   id="totp-verify"
                   value={totpCode}
-                  onChange={(e) => setTotpCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setTotpCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
                   placeholder="000000"
                   maxLength={6}
                   className="w-32 font-mono text-center"
@@ -265,7 +265,7 @@ export function TwoFactorSettings() {
                   id="disable-password"
                   type={showPassword ? "text" : "password"}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setPassword(e.target.value)}
                   placeholder="Enter your password"
                   autoComplete="current-password"
                   disabled={isLoading}

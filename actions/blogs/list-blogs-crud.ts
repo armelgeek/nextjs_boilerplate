@@ -12,7 +12,6 @@ export interface Blog {
     id: string;
     name: string;
   };
-  views: number;
   createdAt: Date;
   updatedAt: Date;
   publishedAt?: Date | null;

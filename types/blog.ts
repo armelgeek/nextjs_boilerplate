@@ -13,7 +13,6 @@ export interface Blog {
   };
   tags?: string[];
   categories?: string[];
-  views: number;
   createdAt: Date;
   updatedAt: Date;
   publishedAt?: Date | null;

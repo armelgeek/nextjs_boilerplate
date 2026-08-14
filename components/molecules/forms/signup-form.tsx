@@ -217,7 +217,7 @@ export function SignupForm({
                     placeholder="000000"
                     maxLength={6}
                     value={otp}
-                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setOtp(e.target.value.replace(/\D/g, ''))}
                     required
                     disabled={isLoading}
                     className="text-center text-2xl tracking-widest"
@@ -338,7 +338,7 @@ export function SignupForm({
                         disabled={isLoading}
                         autoComplete="new-password"
                         value={passwordValue}
-                        onChange={(e) => setPasswordValue(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setPasswordValue(e.target.value)}
                         className={errors.password ? "border-red-500 focus-visible:ring-red-500" : ""}
                         aria-invalid={errors.password ? "true" : "false"}
                         aria-describedby={errors.password ? "password-error" : undefined}

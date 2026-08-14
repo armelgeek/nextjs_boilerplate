@@ -11,8 +11,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { Header } from "@/components/organisms";
+import { Footer } from "@/components/organisms";
 import { Mail, User, Calendar, LogOut } from "lucide-react";
 
 interface Session {

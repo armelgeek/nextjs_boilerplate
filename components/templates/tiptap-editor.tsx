@@ -419,7 +419,7 @@ export const TiptapEditor = ({ content, onChange, placeholder = 'Start writing..
         <div className="p-4">
           <Textarea
             value={sourceCode}
-            onChange={(e) => setSourceCode(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSourceCode(e.target.value)}
             className="font-mono text-sm min-h-[300px]"
             placeholder="HTML source code..."
           />

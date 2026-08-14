@@ -27,7 +27,7 @@ export function merge<T extends Record<string, any>>(
     for (const key in source) {
       if (isPlainObject(source[key])) {
         if (!target[key]) Object.assign(target, { [key]: {} });
-        merge(target[key], source[key]);
+        merge(target[key] as any, source[key] as any);
       } else {
         Object.assign(target, { [key]: source[key] });
       }

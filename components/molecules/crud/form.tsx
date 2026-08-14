@@ -67,7 +67,7 @@ export function CrudForm({ fields, initialValues = {}, onSubmit, isLoading = fal
                 type="text"
                 placeholder={field.placeholder}
                 value={values[field.name] || ''}
-                onChange={(e) => handleChange(field, e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleChange(field, e.target.value)}
                 disabled={isLoading}
               />
             )}
@@ -78,7 +78,7 @@ export function CrudForm({ fields, initialValues = {}, onSubmit, isLoading = fal
                 type="email"
                 placeholder={field.placeholder}
                 value={values[field.name] || ''}
-                onChange={(e) => handleChange(field, e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleChange(field, e.target.value)}
                 disabled={isLoading}
               />
             )}
@@ -89,7 +89,7 @@ export function CrudForm({ fields, initialValues = {}, onSubmit, isLoading = fal
                 type="password"
                 placeholder={field.placeholder}
                 value={values[field.name] || ''}
-                onChange={(e) => handleChange(field, e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleChange(field, e.target.value)}
                 disabled={isLoading}
               />
             )}
@@ -100,7 +100,7 @@ export function CrudForm({ fields, initialValues = {}, onSubmit, isLoading = fal
                 type="number"
                 placeholder={field.placeholder}
                 value={values[field.name] || ''}
-                onChange={(e) => handleChange(field, e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleChange(field, e.target.value)}
                 disabled={isLoading}
               />
             )}
@@ -110,7 +110,7 @@ export function CrudForm({ fields, initialValues = {}, onSubmit, isLoading = fal
                 id={field.name}
                 type="date"
                 value={values[field.name] || ''}
-                onChange={(e) => handleChange(field, e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleChange(field, e.target.value)}
                 disabled={isLoading}
               />
             )}
@@ -120,13 +120,13 @@ export function CrudForm({ fields, initialValues = {}, onSubmit, isLoading = fal
                 id={field.name}
                 placeholder={field.placeholder}
                 value={values[field.name] || ''}
-                onChange={(e) => handleChange(field, e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleChange(field, e.target.value)}
                 disabled={isLoading}
               />
             )}
 
             {field.type === 'select' && (
-              <Select value={values[field.name] || ''} onValueChange={(value) => handleChange(field, value)}>
+              <Select value={values[field.name] || ''} onValueChange={(value: string) => handleChange(field, value)}>
                 <SelectTrigger id={field.name} disabled={isLoading}>
                   <SelectValue placeholder={field.placeholder} />
                 </SelectTrigger>
@@ -145,7 +145,7 @@ export function CrudForm({ fields, initialValues = {}, onSubmit, isLoading = fal
                 <Checkbox
                   id={field.name}
                   checked={values[field.name] || false}
-                  onCheckedChange={(checked) => handleChange(field, checked)}
+                  onCheckedChange={(checked: boolean) => handleChange(field, checked)}
                   disabled={isLoading}
                 />
                 <Label htmlFor={field.name} className="cursor-pointer">

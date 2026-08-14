@@ -16,23 +16,26 @@ export interface Role {
 export async function listRolesCrud(
   options: CrudListOptions
 ): Promise<CrudListResponse<Role>> {
-  const result = await listRoles({
-    page: options.page || 1,
-    limit: options.pageSize || 10,
-    filters: {
-      name: options.filters?.name || '',
-    },
-  });
+  const result = await listRoles();
 
   if (!result.success) {
     throw new Error(result.error || 'Failed to load roles');
   }
 
+  const page = options.page || 1;
+  const pageSize = options.pageSize || 10;
+  const start = (page - 1) * pageSize;
+  const end = start + pageSize;
+
+  const filtered = result.roles.filter(r =>
+    !options.filters?.name || r.name.toLowerCase().includes(options.filters.name.toLowerCase())
+  );
+
   return {
-    data: result.roles as Role[],
-    total: result.pagination.total,
-    page: options.page || 1,
-    pageSize: options.pageSize || 10,
-    totalPages: result.pagination.totalPages,
+    data: filtered.slice(start, end) as Role[],
+    total: filtered.length,
+    page,
+    pageSize,
+    totalPages: Math.ceil(filtered.length / pageSize),
   };
 }

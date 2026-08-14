@@ -131,7 +131,7 @@ export function ContactForm() {
                 name="fullName"
                 placeholder="John Doe"
                 value={form.fullName}
-                onChange={(e) => handleChange('fullName', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleChange('fullName', e.target.value)}
                 disabled={isLoading}
                 aria-invalid={!!errors.fullName}
                 aria-describedby={errors.fullName ? 'fullName-error' : undefined}
@@ -153,7 +153,7 @@ export function ContactForm() {
                 type="email"
                 placeholder="you@example.com"
                 value={form.email}
-                onChange={(e) => handleChange('email', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleChange('email', e.target.value)}
                 disabled={isLoading}
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? 'email-error' : undefined}
@@ -174,7 +174,7 @@ export function ContactForm() {
               type="tel"
               placeholder="+1 (555) 123-4567"
               value={form.phoneNumber}
-              onChange={(e) => handleChange('phoneNumber', e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleChange('phoneNumber', e.target.value)}
               disabled={isLoading}
             />
           </div>
@@ -189,7 +189,7 @@ export function ContactForm() {
               placeholder="Tell us how we can help you..."
               rows={5}
               value={form.message}
-              onChange={(e) => handleChange('message', e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleChange('message', e.target.value)}
               disabled={isLoading}
               aria-invalid={!!errors.message}
               aria-describedby={errors.message ? 'message-error' : undefined}

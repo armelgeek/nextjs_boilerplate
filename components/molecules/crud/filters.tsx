@@ -17,12 +17,12 @@ export function CrudFilters({ filters, config, onFilterChange, onReset }: CrudFi
               <Input
                 placeholder={field.placeholder}
                 value={filters[field.key] || ''}
-                onChange={(e) => onFilterChange(field.key, e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => onFilterChange(field.key, e.target.value)}
               />
             )}
 
             {field.type === 'select' && (
-              <Select value={filters[field.key] || ''} onValueChange={(value) => onFilterChange(field.key, value)}>
+              <Select value={filters[field.key] || ''} onValueChange={(value: string) => onFilterChange(field.key, value)}>
                 <SelectTrigger>
                   <SelectValue placeholder={field.placeholder} />
                 </SelectTrigger>
@@ -41,7 +41,7 @@ export function CrudFilters({ filters, config, onFilterChange, onReset }: CrudFi
                 <Checkbox
                   id={field.key}
                   checked={filters[field.key] || false}
-                  onCheckedChange={(checked) => onFilterChange(field.key, checked)}
+                  onCheckedChange={(checked: boolean) => onFilterChange(field.key, checked)}
                 />
                 <label htmlFor={field.key} className="text-sm cursor-pointer">
                   {field.placeholder}
@@ -53,7 +53,7 @@ export function CrudFilters({ filters, config, onFilterChange, onReset }: CrudFi
               <Input
                 type="date"
                 value={filters[field.key] || ''}
-                onChange={(e) => onFilterChange(field.key, e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => onFilterChange(field.key, e.target.value)}
               />
             )}
           </div>

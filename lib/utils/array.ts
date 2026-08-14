@@ -38,9 +38,12 @@ export function chunk<T>(array: T[], size: number): T[][] {
 }
 
 export function flatten<T>(array: (T | T[])[]): T[] {
-  return array.reduce((acc, val) => {
-    return acc.concat(Array.isArray(val) ? flatten(val) : val);
-  }, [] as T[]);
+  return array.reduce<T[]>((acc, val) => {
+    if (Array.isArray(val)) {
+      return acc.concat(flatten(val));
+    }
+    return acc.concat(val);
+  }, []);
 }
 
 export function compact<T>(array: (T | null | undefined)[]): T[] {

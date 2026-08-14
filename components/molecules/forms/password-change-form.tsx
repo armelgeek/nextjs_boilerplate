@@ -97,7 +97,7 @@ export function PasswordChangeForm() {
             id="currentPassword"
             type={showPasswords ? "text" : "password"}
             value={formData.currentPassword}
-            onChange={(e) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
               setFormData({ ...formData, currentPassword: e.target.value })
             }
             placeholder="Enter your current password"
@@ -122,7 +122,7 @@ export function PasswordChangeForm() {
             id="newPassword"
             type={showPasswords ? "text" : "password"}
             value={formData.newPassword}
-            onChange={(e) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
               setFormData({ ...formData, newPassword: e.target.value })
             }
             placeholder="Enter your new password"
@@ -153,7 +153,7 @@ export function PasswordChangeForm() {
             id="confirmPassword"
             type={showPasswords ? "text" : "password"}
             value={formData.confirmPassword}
-            onChange={(e) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
               setFormData({ ...formData, confirmPassword: e.target.value })
             }
             placeholder="Confirm your new password"
@@ -175,7 +175,7 @@ export function PasswordChangeForm() {
           <Checkbox
             id="showPasswords"
             checked={showPasswords}
-            onCheckedChange={(checked) => setShowPasswords(checked as boolean)}
+            onCheckedChange={(checked: boolean) => setShowPasswords(checked as boolean)}
           />
           <Label
             htmlFor="showPasswords"

@@ -71,7 +71,7 @@ export default function PermissionsPage() {
     handleDeleteClick,
     handleConfirmDelete,
     handleCancelDelete,
-  } = useCrudDelete({
+  } = useCrudDelete<Permission>({
     onDelete: async (permission) => {
       const result = await deletePermission(permission.id);
       if (!result.success) throw new Error(result.error);

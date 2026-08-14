@@ -18,7 +18,7 @@ export function CrudPagination({
       <div className="flex items-center space-x-2">
         <span className="text-sm text-muted-foreground">Items per page:</span>
         {onItemsPerPageChange && (
-          <Select value={String(itemsPerPage)} onValueChange={(value) => onItemsPerPageChange(parseInt(value))}>
+          <Select value={String(itemsPerPage)} onValueChange={(value: string) => onItemsPerPageChange(parseInt(value))}>
             <SelectTrigger className="w-20">
               <SelectValue />
             </SelectTrigger>
