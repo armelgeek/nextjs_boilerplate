@@ -1,6 +1,6 @@
-import { Metadata } from 'next';
-import { headers } from 'next/headers';
-import Link from 'next/link';
+import { Metadata } from "next";
+import { headers } from "next/headers";
+import Link from "next/link";
 import {
   Mail,
   Phone,
@@ -13,22 +13,22 @@ import {
   Instagram,
   Linkedin,
   Youtube,
-} from 'lucide-react';
-import { Header } from '@/components/organisms/header/header';
-import { Footer } from '@/components/organisms/footer/footer';
-import { ContactForm } from '@/components/molecules/forms/contact-form';
-import { getPublicSettings } from '@/actions/settings/get-public-settings';
-import { auth } from '@/lib/auth';
-import { isUserAdmin } from '@/lib/auth-utils';
-import { appConfig } from '@/lib/config';
+} from "lucide-react";
+import { Header } from "@/components/organisms/header/header";
+import { Footer } from "@/components/organisms/footer/footer";
+import { ContactForm } from "@/components/molecules/forms/contact-form";
+import { getPublicSettings } from "@/actions/settings/get-public-settings";
+import { auth } from "@/lib/auth";
+import { isUserAdmin } from "@/lib/auth-utils";
+import { appConfig } from "@/lib/config";
 
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: `Contact Us \u2014 ${appConfig.name}`,
   description: `Get in touch with ${appConfig.name}. We'd love to hear from you \u2014 send us a message, ask a question, or request support.`,
-  path: '/contact',
-  keywords: ['contact', 'support', 'help', 'get in touch', 'customer service'],
+  path: "/contact",
+  keywords: ["contact", "support", "help", "get in touch", "customer service"],
 });
 
 const SOCIAL_ICONS = {
@@ -40,16 +40,16 @@ const SOCIAL_ICONS = {
 } as const;
 
 const SOCIAL_LABELS: Record<string, string> = {
-  facebook: 'Facebook',
-  twitter: 'Twitter / X',
-  instagram: 'Instagram',
-  linkedin: 'LinkedIn',
-  youtube: 'YouTube',
-  tiktok: 'TikTok',
+  facebook: "Facebook",
+  twitter: "Twitter / X",
+  instagram: "Instagram",
+  linkedin: "LinkedIn",
+  youtube: "YouTube",
+  tiktok: "TikTok",
 };
 
-const FALLBACK_EMAIL = process.env.EMAIL_FROM || 'support@example.com';
-const FALLBACK_ADDRESS = 'Remote-first company, worldwide';
+const FALLBACK_EMAIL = process.env.EMAIL_FROM || "support@example.com";
+const FALLBACK_ADDRESS = "Remote-first company, worldwide";
 
 export default async function ContactPage() {
   const [sessionResult, settingsResult] = await Promise.all([
@@ -61,23 +61,33 @@ export default async function ContactPage() {
   const isAdmin = await isUserAdmin(session?.user?.id);
 
   const settings =
-    'success' in settingsResult && settingsResult.success ? settingsResult.data : null;
+    "success" in settingsResult && settingsResult.success
+      ? settingsResult.data
+      : null;
 
   const fullAddress = settings
-    ? [settings.address, settings.city, settings.state, settings.zipCode, settings.country]
+    ? [
+        settings.address,
+        settings.city,
+        settings.state,
+        settings.zipCode,
+        settings.country,
+      ]
         .filter(Boolean)
-        .join(', ')
+        .join(", ")
     : null;
 
   const socialLinks = settings
-    ? ([
-        ['facebook', settings.facebook],
-        ['twitter', settings.twitter],
-        ['instagram', settings.instagram],
-        ['linkedin', settings.linkedin],
-        ['youtube', settings.youtube],
-        ['tiktok', settings.tiktok],
-      ] as [string, string][]).filter(([, url]) => Boolean(url))
+    ? (
+        [
+          ["facebook", settings.facebook],
+          ["twitter", settings.twitter],
+          ["instagram", settings.instagram],
+          ["linkedin", settings.linkedin],
+          ["youtube", settings.youtube],
+          ["tiktok", settings.tiktok],
+        ] as [string, string][]
+      ).filter(([, url]) => Boolean(url))
     : [];
 
   const contactEmail = settings?.email || FALLBACK_EMAIL;
@@ -88,12 +98,14 @@ export default async function ContactPage() {
       <Header user={session?.user} isAdmin={isAdmin} />
 
       <main className="flex-1">
-        {}
         <section className="border-b bg-muted/30 py-16 text-center">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Contact Us</h1>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+              Contact Us
+            </h1>
             <p className="mt-4 text-lg text-muted-foreground">
-              Have a question or want to work with us? We&apos;d love to hear from you.
+              Have a question or want to work with us? We&apos;d love to hear
+              from you.
             </p>
           </div>
         </section>
@@ -105,7 +117,9 @@ export default async function ContactPage() {
             <div className="space-y-8 lg:col-span-2">
               <div>
                 <h2 className="text-xl font-semibold mb-2">Get in Touch</h2>
-                <p className="text-sm text-muted-foreground mb-4">{appConfig.description}</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {appConfig.description}
+                </p>
                 <ul className="space-y-4 text-sm">
                   <li className="flex items-start gap-3">
                     <Mail className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" />
@@ -149,7 +163,7 @@ export default async function ContactPage() {
                           WhatsApp
                         </p>
                         <a
-                          href={`https://wa.me/${settings.whatsappNumber.replace(/\D/g, '')}`}
+                          href={`https://wa.me/${settings.whatsappNumber.replace(/\D/g, "")}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="hover:underline"
@@ -178,7 +192,9 @@ export default async function ContactPage() {
                         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-0.5">
                           Business Hours
                         </p>
-                        <p className="whitespace-pre-line">{settings.businessHours}</p>
+                        <p className="whitespace-pre-line">
+                          {settings.businessHours}
+                        </p>
                       </div>
                     </li>
                   )}
@@ -192,7 +208,8 @@ export default async function ContactPage() {
                   <ul className="space-y-3">
                     {socialLinks.map(([platform, url]) => {
                       const Icon =
-                        SOCIAL_ICONS[platform as keyof typeof SOCIAL_ICONS] ?? Globe;
+                        SOCIAL_ICONS[platform as keyof typeof SOCIAL_ICONS] ??
+                        Globe;
                       return (
                         <li key={platform}>
                           <Link
