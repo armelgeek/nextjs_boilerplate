@@ -1,8 +1,8 @@
 import { requireAdmin } from "@/lib/auth-utils";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { AppSidebar } from "@/components/app-sidebar";
-import { SiteHeader } from "@/components/site-header";
+import { AppSidebar } from '@/components/organisms/sidebar/app-sidebar';
+import { SiteHeader } from '@/components/organisms/header/site-header';
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export default async function AdminLayout({

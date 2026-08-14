@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Outfit, DM_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
-import { CookieConsent } from "@/components/cookie-consent";
-import { PostHogConsent } from "@/components/posthog-provider";
-import { ThemeProvider } from "@/components/theme-provider";
+import { CookieConsent } from '@/components/molecules/dialogs/cookie-consent';
+import { PostHogConsent } from '@/components/providers/posthog-provider';
+import { ThemeProvider } from '@/components/providers/theme-provider';
 import { appConfig } from "@/lib/config";
 import "./globals.css";
 

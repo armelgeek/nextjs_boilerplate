@@ -1,16 +1,16 @@
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { Header } from '@/components/organisms/header/header';
+import { Footer } from '@/components/organisms/footer/footer';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { appConfig } from "@/lib/config";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { isUserAdmin } from "@/lib/auth-utils";
-import { PricingSection } from "@/components/pricing-section";
-import { FeaturesSection } from "@/components/features-section";
-import { TestimonialsSection } from "@/components/testimonials-section";
-import { FaqSection } from "@/components/faq-section";
-import { JsonLd } from "@/components/json-ld";
+import { PricingSection } from '@/components/organisms/sections/pricing-section';
+import { FeaturesSection } from '@/components/organisms/sections/features-section';
+import { TestimonialsSection } from '@/components/organisms/sections/testimonials-section';
+import { FaqSection } from '@/components/organisms/sections/faq-section';
+import { JsonLd } from '@/components/providers/json-ld';
 import {
   buildMetadata,
   organizationSchema,

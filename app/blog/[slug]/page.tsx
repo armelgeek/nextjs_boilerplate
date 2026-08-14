@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
+import { Header } from '@/components/organisms/header/header'
+import { Footer } from '@/components/organisms/footer/footer'
 import type { Metadata } from "next"
 import DOMPurify from "isomorphic-dompurify"
-import { JsonLd } from "@/components/json-ld"
+import { JsonLd } from '@/components/providers/json-ld'
 import { articleSchema, breadcrumbSchema } from "@/lib/seo"
 import { appConfig } from "@/lib/config"
 

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { headers } from "next/headers";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { Header } from '@/components/organisms/header/header';
+import { Footer } from '@/components/organisms/footer/footer';
 import { appConfig } from "@/lib/config";
 import { auth } from "@/lib/auth";
 import { isUserAdmin } from "@/lib/auth-utils";

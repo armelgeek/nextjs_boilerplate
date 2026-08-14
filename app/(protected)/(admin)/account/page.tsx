@@ -1,9 +1,9 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { ProfileForm } from "@/components/profile-form";
-import { PasswordChangeForm } from "@/components/password-change-form";
-import { TwoFactorSettings } from "@/components/two-factor-settings";
-import { ApiKeyManager } from "@/components/api-keys-manager";
+import { ProfileForm } from '@/components/molecules/forms/profile-form';
+import { PasswordChangeForm } from '@/components/molecules/forms/password-change-form';
+import { TwoFactorSettings } from '@/components/templates/two-factor-settings';
+import { ApiKeyManager } from '@/components/templates/api-keys-manager';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 

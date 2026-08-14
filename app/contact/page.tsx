@@ -14,9 +14,9 @@ import {
   Linkedin,
   Youtube,
 } from 'lucide-react';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
-import { ContactForm } from '@/components/contact-form';
+import { Header } from '@/components/organisms/header/header';
+import { Footer } from '@/components/organisms/footer/footer';
+import { ContactForm } from '@/components/molecules/forms/contact-form';
 import { getPublicSettings } from '@/actions/settings/get-public-settings';
 import { auth } from '@/lib/auth';
 import { isUserAdmin } from '@/lib/auth-utils';

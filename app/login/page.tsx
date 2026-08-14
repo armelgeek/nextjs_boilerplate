@@ -1,10 +1,10 @@
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
-import { Logo } from "@/components/logo"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { LoginForm } from "@/components/login-form"
+import { Logo } from '@/components/atoms/icons/logo'
+import { Header } from '@/components/organisms/header/header'
+import { Footer } from '@/components/organisms/footer/footer'
+import { LoginForm } from '@/components/molecules/forms/login-form'
 import { buildMetadata } from "@/lib/seo"
 
 export const metadata = buildMetadata({

@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { prisma } from "@/lib/prisma"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
+import { Header } from '@/components/organisms/header/header'
+import { Footer } from '@/components/organisms/footer/footer'
 import { formatDistanceToNow } from "date-fns"
 import { buildMetadata } from "@/lib/seo"
 

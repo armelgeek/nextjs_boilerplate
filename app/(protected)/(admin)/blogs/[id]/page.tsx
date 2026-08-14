@@ -13,7 +13,7 @@ import { getBlog } from '@/actions/blogs/get-blog';
 import { updateBlog } from '@/actions/blogs/update-blog';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { z } from 'zod';
-import { TiptapEditor } from '@/components/tiptap-editor';
+import { TiptapEditor } from '@/components/templates/tiptap-editor';
 import { Badge } from '@/components/ui/badge';
 import { IconX } from '@tabler/icons-react';
 

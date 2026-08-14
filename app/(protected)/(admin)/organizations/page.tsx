@@ -1,7 +1,7 @@
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
-import { OrganizationManager } from "@/components/organization-manager"
+import { OrganizationManager } from '@/components/templates/organization-manager'
 
 export const metadata = {
   title: "Organizations",

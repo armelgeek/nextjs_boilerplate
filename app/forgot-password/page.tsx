@@ -1,6 +1,6 @@
-import { ForgotPasswordForm } from "@/components/forgot-password-form"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
+import { ForgotPasswordForm } from '@/components/molecules/forms/forgot-password-form'
+import { Header } from '@/components/organisms/header/header'
+import { Footer } from '@/components/organisms/footer/footer'
 import { buildMetadata } from "@/lib/seo"
 
 export const metadata = buildMetadata({

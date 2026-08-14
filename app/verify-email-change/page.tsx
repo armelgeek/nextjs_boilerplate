@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { Header } from '@/components/organisms/header/header';
+import { Footer } from '@/components/organisms/footer/footer';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { CheckCircle2, XCircle, Clock } from "lucide-react";

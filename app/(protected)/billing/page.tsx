@@ -3,9 +3,9 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getUserSubscription } from "@/actions/payments";
 import { isUserAdmin } from "@/lib/auth-utils";
-import BillingClient from "@/components/billing-client";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import BillingClient from '@/components/templates/billing-client';
+import { Header } from '@/components/organisms/header/header';
+import { Footer } from '@/components/organisms/footer/footer';
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

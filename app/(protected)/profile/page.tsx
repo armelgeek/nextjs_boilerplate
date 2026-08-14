@@ -1,13 +1,13 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { isUserAdmin } from "@/lib/auth-utils";
-import { ProfileForm } from "@/components/profile-form";
-import { PasswordChangeForm } from "@/components/password-change-form";
-import { TwoFactorSettings } from "@/components/two-factor-settings";
+import { ProfileForm } from '@/components/molecules/forms/profile-form';
+import { PasswordChangeForm } from '@/components/molecules/forms/password-change-form';
+import { TwoFactorSettings } from '@/components/templates/two-factor-settings';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { Header } from '@/components/organisms/header/header';
+import { Footer } from '@/components/organisms/footer/footer';
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = 'force-dynamic';

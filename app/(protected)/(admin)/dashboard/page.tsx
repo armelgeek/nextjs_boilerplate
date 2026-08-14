@@ -1,6 +1,6 @@
-import { ChartAreaInteractive } from "@/components/chart-area-interactive"
-import { DataTable } from "@/components/data-table"
-import { SectionCards } from "@/components/section-cards"
+import { ChartAreaInteractive } from '@/components/templates/chart-area-interactive'
+import { DataTable } from '@/components/templates/data-table'
+import { SectionCards } from '@/components/molecules/cards/section-cards'
 import { getDashboardStats } from "./actions"
 
 export const dynamic = 'force-dynamic'

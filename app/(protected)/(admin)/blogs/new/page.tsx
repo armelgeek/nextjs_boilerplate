@@ -12,7 +12,7 @@ import { toast } from 'sonner';
 import { createBlog } from '@/actions/blogs/create-blog';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { z } from 'zod';
-import { TiptapEditor } from '@/components/tiptap-editor';
+import { TiptapEditor } from '@/components/templates/tiptap-editor';
 import { Badge } from '@/components/ui/badge';
 import { IconX } from '@tabler/icons-react';
 

@@ -2,8 +2,8 @@
 
 import { useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
+import { Header } from '@/components/organisms/header/header'
+import { Footer } from '@/components/organisms/footer/footer'
 import Link from "next/link"
 import { AlertTriangle } from "lucide-react"
 
