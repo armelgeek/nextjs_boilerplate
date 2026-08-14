@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+
+# Python bytecode, created by running the helpers or the selftest
+__pycache__/
+*.pyc

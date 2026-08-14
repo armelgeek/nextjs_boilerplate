@@ -1,0 +1,16 @@
+# Drift Brain Database
+.drift-brain.db
+.brain-checkpoints/
+*.db-shm
+*.db-wal
+
+# Hook artifacts
+*.log
+
+# Node files from brain-init
+node_modules/
+package-lock.json
+
+# Temporary files
+.DS_Store
+*.tmp

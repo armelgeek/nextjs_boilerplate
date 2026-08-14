@@ -1,0 +1,113 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit"
+  },
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "emmet.showExpandedAbbreviation": "never",
+  "prettier.enable": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "tailwindCSS.experimental.configFile": "packages/design-system/styles/globals.css",
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/.turbo": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.env.local": true,
+    "**/.env.*.local": true,
+    ".github": true,
+    ".husky": true,
+    ".devcontainer": true,
+    ".factory": true,
+    ".agents": true,
+    ".cursor": true,
+    ".opencode": true,
+    ".zed": true,
+    "docs": true,
+    "runbooks": true,
+    "patches": true,
+    "turbo": true,
+    "e2e": true,
+    "plans": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/.turbo": true,
+    "**/dist": true,
+    "**/build": true,
+    ".github": true,
+    ".husky": true,
+    ".devcontainer": true,
+    ".factory": true,
+    ".agents": true,
+    ".cursor": true,
+    ".opencode": true,
+    ".zed": true,
+    "docs": true,
+    "runbooks": true,
+    "patches": true,
+    "turbo": true,
+    "e2e": true,
+    "plans": true
+  },
+  "files.watcherExclude": {
+    "**/.next/**": true,
+    "**/.turbo/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.git/**": true,
+    "**/node_modules/**": true
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.compactFolders": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, pnpm-lock.yaml, yarn.lock, .npmrc, .yarnrc*, tsconfig*.json, .eslintrc*, .prettierrc*, .editorconfig, biome.jsonc, vitest.config.ts, jest.config.js",
+    ".env": ".env.*, .env.example",
+    "docker-compose.yml": "Dockerfile*, .dockerignore",
+    "next.config.js": "next-env.d.ts, .next",
+    "README.md": "LICENSE, CHANGELOG.md, CONTRIBUTING.md, DEVELOPMENT.md",
+    "turbo.json": "turbo.png",
+    "drizzle.config.ts": "drizzle.config.*.ts",
+    ".gitignore": ".gitattributes, .gitkeep"
+  },
+  "model": "haiku",
+  "drift": {
+    "brain": {
+      "path": "./.drift-brain.db",
+      "auto_init": true,
+      "checkpoints_dir": "./.brain-checkpoints",
+      "max_checkpoints": 10
+    },
+    "auto_routing": {
+      "enabled": true,
+      "description": "Auto-invoke skills based on user intent (add/fix/refactor/research)"
+    },
+    "agents": {
+      "scout": "drift-scout",
+      "architect": "drift-architect",
+      "builder": "drift-builder",
+      "critic": "drift-critic",
+      "scribe": "drift-scribe"
+    }
+  }
+}

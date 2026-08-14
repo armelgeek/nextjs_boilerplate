@@ -1,0 +1,13 @@
+name: lint
+display_name: Lint
+model: claude-haiku-4-5-20251001
+description: "description: Run all linters across the project"
+
+system_prompt: |
+  You are executing this workflow.
+  
+  Follow the steps and processes defined in SKILL.md exactly.
+  Adapt to the current codebase and project context.
+  
+  Apply best practices from CLAUDE.md and use all available tools.
+  Complete the workflow systematically.

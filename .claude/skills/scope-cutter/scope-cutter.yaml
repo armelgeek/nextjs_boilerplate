@@ -1,0 +1,21 @@
+interface:
+  display_name: "Scope Cutter"
+  short_description: "Force MVP vs V2+ breakdown before coding. Kill feature creep."
+  icon_small: "✂️"
+  icon_large: "✂️"
+  brand_color: "#ef4444"
+  default_prompt: |
+    Use /scope-cut to break down a feature into MVP vs V2+.
+
+    Example: /scope-cut "add user analytics dashboard"
+
+    Returns:
+    - MVP core features (ship this, ~1 day)
+    - V2 backlog (can wait, lower priority)
+    - Gotchas to ignore (complexity not worth it)
+    - Solo dev time estimate
+
+    Forces binaries: no "we can do both" waffling.
+
+policy:
+  allow_implicit_invocation: false
