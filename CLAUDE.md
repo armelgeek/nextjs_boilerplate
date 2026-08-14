@@ -266,13 +266,25 @@ export default function FeaturesPage() {
 
 ## 📋 Conventions
 
-### Naming
+### Code Style
 
+**Comments:**
+- Keep clean after each feature — remove unnecessary comments
+- Only add comments when WHY is non-obvious, not WHAT the code does
+- No multi-line comment blocks
+- Remove debug/temporary comments before commit
+
+**Naming:**
 - **Files**: kebab-case (`feature-form.tsx`, `create-feature.ts`)
 - **Functions**: camelCase (`createFeature`, `handleSubmit`)
 - **Constants**: UPPER_SNAKE_CASE (`MAX_FILE_SIZE`)
 - **DB Tables**: snake_case (`feature_items`)
 - **API Routes**: kebab-case (`/api/feature-items`)
+
+**Git Commits:**
+- Conventional commits: `feat:`, `fix:`, `refactor:`, `docs:`, `chore:`
+- NO `Co-Authored-By` trailers in commits
+- One commit per logical change
 
 ### Response Format
 
