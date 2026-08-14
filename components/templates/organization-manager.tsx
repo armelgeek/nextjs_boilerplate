@@ -40,7 +40,7 @@ export function OrganizationManager() {
     try {
       const res = await api.get("/api/organizations")
       if (!res.ok) throw new Error(res.error)
-      setOrganizations(res.data.organizations || [])
+      setOrganizations((res.data as any).organizations || [])
     } catch {
       toast.error("Failed to load organizations")
     } finally {
@@ -52,7 +52,7 @@ export function OrganizationManager() {
     try {
       const res = await api.get(`/api/organizations/${orgId}/members`)
       if (!res.ok) throw new Error(res.error)
-      setMembers(res.data.members || [])
+      setMembers((res.data as any).members || [])
     } catch {
       toast.error("Failed to load members")
     }
