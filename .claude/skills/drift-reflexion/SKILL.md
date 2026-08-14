@@ -4,9 +4,9 @@ description: >-
   Before writing a single line of code, enforce structured internal reflection. No code output — a short plan covering behavior, UI states, edge cases. Triggers on: create/add/modify a feature, screen, component, form, dashboard, flow, page. Prevents half-baked code.
 ---
 
-# Think Before Code — Mooz Edition
+# Think Before Code
 
-**Don't code blind.** This skill forces structured self-reflection BEFORE the first line — not a questionnaire for the user, but a short plan that captures behavior, UI states, and pitfalls specific to Mooz's stack.
+**Don't code blind.** This skill forces structured self-reflection BEFORE the first line — not a questionnaire for the user, but a short plan that captures behavior, UI states, and pitfalls specific to this project's stack.
 
 ## When It Triggers
 
@@ -34,12 +34,12 @@ Ask yourself silently:
 - **Inputs/outputs/params?** (what comes in, what goes out)
 - **Edge cases:** empty data, network down, invalid input, permissions, race conditions (double-click, concurrent requests)?
 - **Touch existing data?** (migration, consistency, breaking changes to schema)
-- **What's in Mooz already I should reuse?**
-  - `useServerAction()` for form submissions?
-  - Existing `packages/database` queries?
-  - `packages/auth` session/permissions?
+- **What's in the project already I should reuse?**
+  - Server actions for form submissions?
+  - Existing database queries from `lib/`?
+  - `lib/auth` session/permissions?
   - Shadcn/ui component (Button, Form, Dialog)?
-  - Error handling pattern from `packages/observability`?
+  - Error handling pattern from existing actions?
 
 ### Step 2 — UI States (Critical for Next.js Server Components)
 
@@ -59,15 +59,15 @@ Visual consistency:
 - Matches existing pages in `apps/app` or `apps/web`?
 - Mobile-responsive? (tested at 375px width minimum?)
 
-### Step 3 — Mooz-Specific Patterns
+### Step 3 — Project-Specific Patterns
 
 Before coding, ask:
-- **Server Action or API route?** (prefer Server Action for mutations in `apps/app`)
-- **Database query pattern?** (use Drizzle from `packages/database`, typed queries only)
-- **Validation?** (Zod schema, validate on server, not client)
-- **Error handling?** (return `{ success, data } | { success: false, error }` pattern?)
-- **Permissions?** (check `` session, no hardcoded roles)
-- **Testing needed?** (unit test for business logic in `packages/*`, integration test for flow?)
+- **Server Action or API route?** (prefer Server Action for mutations)
+- **Database query pattern?** (use Prisma from `lib/db`, type-safe queries)
+- **Validation?** (Zod schema from `lib/schemas`, validate on server, not client)
+- **Error handling?** (return `{ success, data } | { success: false, error }` pattern)
+- **Permissions?** (check `auth.getSession()`, use `checkPermission()`)
+- **Testing needed?** (write tests for business logic)
 
 ### Step 4 — Blocking Questions
 
@@ -80,7 +80,7 @@ Examples that ARE blocking:
 - "Is this a public page or auth-only?" (changes permission logic)
 
 Examples that are NOT:
-- "Use Drizzle or raw SQL?" (always Drizzle in Mooz)
+- "Use Prisma or raw SQL?" (always Prisma in this project)
 - "One component or split into pieces?" (I can decide this)
 - "Light/dark mode support?" (yes, always)
 
@@ -94,7 +94,7 @@ Display a SHORT plan (2-5 points) covering:
 ```
 🎯 Behavior: [one line]
 📊 States: [list: idle | loading | success | error | empty]
-⚙️ Tech: [Server Action / API route, Drizzle query, validation schema]
+⚙️ Tech: [Server Action / API route, Prisma query, validation schema]
 ⚠️ Edge cases: [what's handled and how]
 📦 Reuse: [existing component / hook / service]
 Assumptions: [any guess I made that might need correction in one sentence]
