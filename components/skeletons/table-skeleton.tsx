@@ -44,7 +44,7 @@ export function TableSkeleton({ columns = 7, rows = 8 }: TableSkeletonProps) {
 
 export function TableSkeletonRows({ columns = 7, rows = 5 }: TableSkeletonProps) {
   return (
-    <>
+    <TableBody>
       {Array.from({ length: rows }).map((_, i) => (
         <TableRow key={`skeleton-row-${i}`}>
           {Array.from({ length: columns }).map((_, j) => (
@@ -54,6 +54,6 @@ export function TableSkeletonRows({ columns = 7, rows = 5 }: TableSkeletonProps)
           ))}
         </TableRow>
       ))}
-    </>
+    </TableBody>
   )
 }
