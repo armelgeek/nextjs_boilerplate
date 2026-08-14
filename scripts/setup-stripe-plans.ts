@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { stripe } from "@/lib/payments/stripe/config";
 import { db } from "@/lib/db";
 
