@@ -122,7 +122,7 @@ export function TwoFactorSettings() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        {/* ── Idle: enable / disable button ─────────────────────────── */}
+        {}
         {step === "idle" && (
           <div className="flex gap-2">
             {!isTwoFactorEnabled ? (
@@ -137,7 +137,7 @@ export function TwoFactorSettings() {
           </div>
         )}
 
-        {/* ── Enter password to start enable flow ────────────────────── */}
+        {}
         {step === "enter-password" && (
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
@@ -181,7 +181,7 @@ export function TwoFactorSettings() {
           </div>
         )}
 
-        {/* ── Show QR code and verify TOTP to activate ───────────────── */}
+        {}
         {step === "show-qr" && qrCode && (
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
@@ -252,7 +252,7 @@ export function TwoFactorSettings() {
           </div>
         )}
 
-        {/* ── Confirm password to disable 2FA ────────────────────────── */}
+        {}
         {step === "confirm-disable" && (
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">

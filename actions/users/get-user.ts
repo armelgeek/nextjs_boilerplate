@@ -6,14 +6,13 @@ import { canAccessUser } from '@/lib/permissions';
 import { auditLogger, AuditEventType } from '@/lib/security/audit-logger';
 
 export async function getAdmin(id: string) {
-  // Check permission to read admins
+  
   const session = await requirePermission("user", "read");
 
   if (!id) {
     return { error: 'Admin ID is required' };
   }
 
-  // IDOR guard: verify the current user is allowed to access this specific user
   const permitted = await canAccessUser(session.user.id, id);
   if (!permitted) {
     auditLogger.logSecurity(

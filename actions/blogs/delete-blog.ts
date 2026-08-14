@@ -4,7 +4,7 @@ import { db } from '@/lib/db';
 import { requirePermission } from '@/lib/auth-helpers';
 
 export async function deleteBlog(id: string) {
-  // Check permission to delete blogs
+  
   await requirePermission("blog", "delete");
 
   if (!id) {
@@ -12,7 +12,7 @@ export async function deleteBlog(id: string) {
   }
 
   try {
-    // Check if blog exists
+    
     const existingBlog = await db.blog.findUnique({
       where: { id },
     });
@@ -21,7 +21,6 @@ export async function deleteBlog(id: string) {
       return { error: 'Blog not found' };
     }
 
-    // Delete blog
     await db.blog.delete({
       where: { id },
     });

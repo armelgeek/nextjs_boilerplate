@@ -29,7 +29,7 @@ const signupSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   phone: z.union([z.string(), z.undefined()]).optional().refine((val) => {
-    // Phone is optional - empty or valid
+    
     if (!val || val.length === 0) return true;
     try {
       return isValidPhoneNumber(val);
@@ -76,7 +76,7 @@ export function SignupForm({
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [passwordValue, setPasswordValue] = useState("")
-  const RESEND_COOLDOWN = 60000 // 60 seconds
+  const RESEND_COOLDOWN = 60000 
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -88,7 +88,6 @@ export function SignupForm({
     const password = formData.get("password") as string
     const confirmPassword = formData.get("confirm-password") as string
 
-    // Validate with Zod
     const validation = signupSchema.safeParse({ 
       name, 
       email: emailValue, 
@@ -119,8 +118,7 @@ export function SignupForm({
         password,
         name,
       };
-      
-      // Add phone if provided
+
       if (phone) {
         signupData.phone = phone;
       }
@@ -133,7 +131,6 @@ export function SignupForm({
         return
       }
 
-      // Show OTP verification form
       setEmail(emailValue)
       setShowOtpVerification(true)
       toast.success("Account created! Please check your email for the verification code.")

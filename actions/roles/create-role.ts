@@ -10,18 +10,17 @@ interface CreateRoleInput {
 }
 
 export async function createRole(data: CreateRoleInput) {
-  // Check permission to create roles
+  
   await requirePermission("role", "create");
 
   const { name, description, permissionIds } = data;
 
-  // Validate required fields
   if (!name || name.trim() === "") {
     return { error: "Role name is required" };
   }
 
   try {
-    // Check if role already exists
+    
     const existingRole = await prisma.role.findUnique({
       where: { name: name.trim() },
     });
@@ -32,7 +31,6 @@ export async function createRole(data: CreateRoleInput) {
       };
     }
 
-    // Create role with permissions
     const role = await prisma.role.create({
       data: {
         name: name.trim(),

@@ -28,7 +28,6 @@ export const cancelSubscription = async (subscriptionId: string) => {
       return { error: "Authentication required" };
     }
 
-    // Validate subscription ID format
     if (!subscriptionId || typeof subscriptionId !== "string") {
       return { error: "Invalid subscription" };
     }
@@ -36,7 +35,7 @@ export const cancelSubscription = async (subscriptionId: string) => {
     const subscription = await prisma.subscription.findUnique({
       where: {
         id: subscriptionId,
-        userId: session.user.id, // Ensure user owns this subscription
+        userId: session.user.id, 
       },
     });
 
@@ -54,12 +53,10 @@ export const cancelSubscription = async (subscriptionId: string) => {
       return { error: "Subscription not found" };
     }
 
-    // Check if subscription is already cancelled
     if (subscription.status === "canceled" || subscription.cancelAtPeriodEnd) {
       return { error: "Subscription already cancelled" };
     }
 
-    // Cancel at period end with idempotency
     const idempotencyKey = `cancel_${subscriptionId}_${Date.now()}`;
     
     await stripe.subscriptions.update(

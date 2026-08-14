@@ -70,7 +70,6 @@ export default function EditRolePage() {
   const loadData = async () => {
     setLoading(true);
 
-    // Load role and permissions in parallel
     const [roleResult, permissionsResult] = await Promise.all([
       getRole(roleId),
       listPermissions(),
@@ -114,9 +113,9 @@ export default function EditRolePage() {
         toast.error(result.error);
       } else {
         toast.success(result.success);
-        // Reload the data to show the updated state
+        
         await loadData();
-        // Optional: redirect after showing the updated data
+        
         setTimeout(() => router.push('/roles'), 1000);
       }
     } finally {

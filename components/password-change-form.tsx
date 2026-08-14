@@ -33,7 +33,6 @@ export function PasswordChangeForm() {
     e.preventDefault();
     setErrors({});
 
-    // Validate with Zod
     const validation = passwordChangeSchema.safeParse({
       currentPassword: formData.currentPassword,
       newPassword: formData.newPassword,
@@ -72,7 +71,6 @@ export function PasswordChangeForm() {
           : "Password changed successfully!"
       );
 
-      // Reset form
       setFormData({
         currentPassword: "",
         newPassword: "",
@@ -187,29 +185,9 @@ export function PasswordChangeForm() {
           </Label>
         </div>
 
-        {/* <div className="bg-muted/50 border border-border rounded-lg p-4">
-          <div className="flex items-start space-x-3">
-            <Checkbox
-              id="revokeOtherSessions"
-              checked={formData.revokeOtherSessions}
-              onCheckedChange={(checked) =>
-                setFormData({ ...formData, revokeOtherSessions: checked as boolean })
-              }
-            />
-            <div className="flex-1">
-              <Label
-                htmlFor="revokeOtherSessions"
-                className="text-sm font-medium cursor-pointer"
-              >
-                Log out all other devices
-              </Label>
-              <p className="text-xs text-muted-foreground mt-1">
-                This will sign you out from all other browsers and devices. You
-                will remain signed in on this device.
-              </p>
-            </div>
-          </div>
-        </div> */}
+        {
+
+}
       </div>
 
       <div className="flex justify-end pt-4">

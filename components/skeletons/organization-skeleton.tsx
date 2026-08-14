@@ -34,18 +34,18 @@ export function OrganizationPageSkeleton() {
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 px-4 lg:px-6">
-          {/* Heading */}
+          {}
           <div className="mb-2 space-y-2">
             <Skeleton className="h-9 w-48" />
             <Skeleton className="h-4 w-80" />
           </div>
 
-          {/* Create org button area */}
+          {}
           <div className="flex justify-end">
             <Skeleton className="h-9 w-44" />
           </div>
 
-          {/* Organization cards */}
+          {}
           <div className="grid gap-6 md:grid-cols-2">
             {Array.from({ length: 4 }).map((_, i) => (
               <OrganizationCardSkeleton key={`skeleton-org-card-${i}`} />

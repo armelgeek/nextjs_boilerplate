@@ -14,7 +14,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Rate limit: 10 requests per minute per authenticated user
     const rateLimitResult = rateLimit(`check-permission:${session.user.id}`, {
       limit: 10,
       windowSeconds: 60,

@@ -15,7 +15,7 @@ interface UpdateBlogInput {
 }
 
 export async function updateBlog(data: UpdateBlogInput) {
-  // Check permission to update blogs
+  
   await requirePermission("blog", "update");
 
   const { 
@@ -29,13 +29,12 @@ export async function updateBlog(data: UpdateBlogInput) {
     tags = []
   } = data;
 
-  // Validate required fields
   if (!id || !title || !slug || !content) {
     return { error: 'ID, title, slug, and content are required' };
   }
 
   try {
-    // Check if blog exists
+    
     const existingBlog = await db.blog.findUnique({
       where: { id },
     });
@@ -44,7 +43,6 @@ export async function updateBlog(data: UpdateBlogInput) {
       return { error: 'Blog not found' };
     }
 
-    // Check if slug is already used by another blog
     const duplicateBlog = await db.blog.findFirst({
       where: {
         AND: [
@@ -58,7 +56,6 @@ export async function updateBlog(data: UpdateBlogInput) {
       return { error: 'A blog with this slug already exists' };
     }
 
-    // Prepare update data
     const updateData: any = {
       title,
       slug,
@@ -69,12 +66,10 @@ export async function updateBlog(data: UpdateBlogInput) {
       tags,
     };
 
-    // Set publishedAt when publishing for the first time
     if (published && !existingBlog.published) {
       updateData.publishedAt = new Date();
     }
 
-    // Update the blog
     const blog = await db.blog.update({
       where: { id },
       data: updateData,

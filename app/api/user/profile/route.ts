@@ -13,7 +13,6 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Get user with admin status
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
       select: {
@@ -54,7 +53,6 @@ export async function PATCH(request: Request) {
     const body = await request.json();
     const { name, phone } = body;
 
-    // Validate input
     if (!name) {
       return NextResponse.json(
         { error: "Name is required" },
@@ -62,7 +60,6 @@ export async function PATCH(request: Request) {
       );
     }
 
-    // Update user (email changes are handled via /api/user/email-change)
     const updatedUser = await prisma.user.update({
       where: { id: session.user.id },
       data: {

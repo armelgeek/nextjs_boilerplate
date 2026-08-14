@@ -35,11 +35,11 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://us-assets.i.posthog.com",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https:
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' blob: data: https:",
               "font-src 'self' data:",
-              "connect-src 'self' https://us.i.posthog.com https://us-assets.i.posthog.com",
+              "connect-src 'self' https:
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",

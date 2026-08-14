@@ -14,7 +14,7 @@ interface CreateBlogInput {
 }
 
 export async function createBlog(data: CreateBlogInput) {
-  // Check permission to create blogs
+  
   await requirePermission("blog", "create");
 
   const session = await getSession();
@@ -32,13 +32,12 @@ export async function createBlog(data: CreateBlogInput) {
     tags = []
   } = data;
 
-  // Validate required fields
   if (!title || !slug || !content) {
     return { error: 'Title, slug, and content are required' };
   }
 
   try {
-    // Check if slug is already used
+    
     const existingBlog = await db.blog.findUnique({
       where: { slug },
     });
@@ -47,7 +46,6 @@ export async function createBlog(data: CreateBlogInput) {
       return { error: 'A blog with this slug already exists' };
     }
 
-    // Create the blog
     const blog = await db.blog.create({
       data: {
         title,

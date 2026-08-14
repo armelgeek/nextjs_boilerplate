@@ -82,7 +82,6 @@ export default function RolesPage() {
   const applyFilters = (rolesList: Role[], filterValues: RoleFilterValues) => {
     let filtered = rolesList;
 
-    // Filter by name
     if (filterValues.name) {
       filtered = filtered.filter((role) => role.name.toLowerCase().includes(filterValues.name.toLowerCase()));
     }
@@ -93,10 +92,9 @@ export default function RolesPage() {
   const handleFilterChange = (newFilters: RoleFilterValues) => {
     setFilters(newFilters);
     applyFilters(roles, newFilters);
-    setCurrentPage(1); // Reset to first page when filters change
+    setCurrentPage(1); 
   };
 
-  // Calculate pagination
   const totalPages = Math.ceil(filteredRoles.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -104,7 +102,7 @@ export default function RolesPage() {
 
   const handleItemsPerPageChange = (value: string) => {
     setItemsPerPage(Number(value));
-    setCurrentPage(1); // Reset to first page when changing items per page
+    setCurrentPage(1); 
   };
 
   const handleDeleteClick = (id: string) => {
@@ -134,7 +132,7 @@ export default function RolesPage() {
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
           <div className="px-4 lg:px-6">
-                {/* Breadcrumb */}
+                {}
                 <Breadcrumb className="mb-6">
                   <BreadcrumbList>
                     <BreadcrumbItem>
@@ -147,7 +145,7 @@ export default function RolesPage() {
                   </BreadcrumbList>
                 </Breadcrumb>
 
-                {/* Header */}
+                {}
                 <div className="mb-6 flex items-center justify-between">
                   <div>
                     <h1 className="text-2xl font-semibold">Roles</h1>
@@ -162,7 +160,7 @@ export default function RolesPage() {
                   </div>
                 </div>
 
-                {/* Table */}
+                {}
                 <div className="rounded-lg border">
                   <Table>
                     <TableHeader>
@@ -233,7 +231,7 @@ export default function RolesPage() {
                   </Table>
                 </div>
 
-                {/* Pagination Controls */}
+                {}
                 {filteredRoles.length > 0 && (
                   <div className="flex items-center justify-between px-4 py-4">
                     <div className="flex items-center gap-2">
@@ -285,7 +283,7 @@ export default function RolesPage() {
       </div>
     </div>
 
-    {/* Delete Confirmation Dialog */}
+    {}
     <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>

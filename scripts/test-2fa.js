@@ -1,11 +1,8 @@
-/**
- * Playwright E2E test for Two-Factor Authentication (2FA)
- * Tests the full 2FA flow on http://localhost:3000/profile
- */
+
+
 const { chromium } = require("playwright");
 const crypto = require("crypto");
 
-// ── TOTP helper (RFC 6238) ─────────────────────────────────────────────────
 function base32Decode(str) {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
   let bits = 0, value = 0;
@@ -38,7 +35,6 @@ function extractSecretFromURI(uri) {
   } catch { return null; }
 }
 
-// ── Test runner ────────────────────────────────────────────────────────────
 const BASE = "http://localhost:3000";
 const TEST_EMAIL = "admin@admin.com";
 const TEST_PASS = "adminadmin";
@@ -65,7 +61,6 @@ async function shot(page, name) {
   const context = await browser.newContext();
   const page = await context.newPage();
 
-  // Intercept API calls to capture twoFactor responses
   const apiLogs = [];
   page.on("response", async (res) => {
     const url = res.url();
@@ -103,7 +98,6 @@ async function shot(page, name) {
   const isLoggedIn = !afterLogin.includes("/login") && !afterLogin.includes("/signup");
   log(isLoggedIn ? "✅" : "❌", "Login result", `URL: ${afterLogin}`);
 
-  // ── 3. NAVIGATE TO PROFILE > SECURITY TAB ─────────────────────────────
   console.log("\n" + "═".repeat(50));
   console.log("STEP 3: PROFILE SECURITY TAB");
   console.log("═".repeat(50));
@@ -116,7 +110,6 @@ async function shot(page, name) {
   log("ℹ️", "Profile page title", profileTitle);
   log(page.url().includes("/profile") ? "✅" : "❌", "Profile page loaded", page.url());
 
-  // Click Security tab
   const secTab = page.getByRole("tab", { name: /security/i });
   const secTabExists = await secTab.count() > 0;
   log(secTabExists ? "✅" : "❌", "Security tab found");
@@ -127,7 +120,6 @@ async function shot(page, name) {
     await shot(page, "07-security-tab");
   }
 
-  // ── 4. 2FA SECTION EXISTS ──────────────────────────────────────────────
   console.log("\n" + "═".repeat(50));
   console.log("STEP 4: 2FA SECTION UI CHECK");
   console.log("═".repeat(50));
@@ -140,7 +132,6 @@ async function shot(page, name) {
   const enableBtnExists = await enableBtn.count() > 0;
   log(enableBtnExists ? "✅" : "❌", "Enable 2FA button present");
 
-  // ── 5. CLICK ENABLE 2FA ────────────────────────────────────────────────
   console.log("\n" + "═".repeat(50));
   console.log("STEP 5: CLICK ENABLE 2FA");
   console.log("═".repeat(50));
@@ -149,7 +140,6 @@ async function shot(page, name) {
     await enableBtn.click();
     await page.waitForTimeout(1000);
 
-    // New flow: password confirmation step appears first
     const passwordInput = page.locator('#enable-password');
     const hasPasswordStep = await passwordInput.count() > 0;
     log(hasPasswordStep ? "✅" : "❌", "Password confirmation step appeared after Enable click");
@@ -167,7 +157,6 @@ async function shot(page, name) {
 
     await shot(page, "08-after-enable-click");
 
-    // Check API response
     const enableCall = apiLogs.find(r => r.url.includes("enable") || r.url.includes("two-factor"));
     if (enableCall) {
       log("ℹ️", "Enable 2FA API call", `${enableCall.url} → HTTP ${enableCall.status}`);
@@ -178,7 +167,6 @@ async function shot(page, name) {
       log("❌", "Enable 2FA API call", "No API call intercepted for /two-factor/enable");
     }
 
-    // Check for QR code display
     const qrImageEl = page.locator("canvas, svg[data-testid='qr'], img[alt*='QR'], img[alt*='qr'], svg rect");
     const qrImageExists = await qrImageEl.count() > 0;
     log(qrImageExists ? "✅" : "❌", "QR code rendered as image element (canvas/svg/img)");
@@ -186,12 +174,11 @@ async function shot(page, name) {
     // Check that raw TOTP URI is NOT shown as text
     const qrAsText = await page.locator("p:has-text('otpauth://')").count() > 0;
     if (qrAsText) {
-      log("❌", "BUG: QR code still displayed as raw otpauth:// text");
+      log("❌", "BUG: QR code still displayed as raw otpauth:
     } else {
       log("✅", "QR code not rendered as raw text (correct)");
     }
 
-    // Check if setup form appeared
     const verifyInput = page.locator("input[placeholder='000000']");
     const verifyInputExists = await verifyInput.count() > 0;
     log(verifyInputExists ? "✅" : "❌", "TOTP verification input (6-digit) appeared");
@@ -213,7 +200,7 @@ async function shot(page, name) {
     log("✅", "Extracted TOTP secret from URI", secret ? `${secret.slice(0, 8)}...` : "null");
 
     if (secret) {
-      // Try current window and ±1 windows for clock skew
+      
       for (const w of [0, -1, 1]) {
         const code = generateTOTP(secret, w);
         log("ℹ️", `Generated TOTP code (window ${w})`, code);
@@ -241,7 +228,6 @@ async function shot(page, name) {
             log("❌", "verifyTotp API", "No call intercepted");
           }
 
-          // Check if 2FA is now shown as enabled
           const enabledBadge = page.getByText(/enabled/i).filter({ has: page.locator("span, div") });
           const isNowEnabled = await page.getByText("Enabled").count() > 0;
           log(isNowEnabled ? "✅" : "❌", "2FA badge shows 'Enabled' after verification");
@@ -297,7 +283,6 @@ async function shot(page, name) {
 
   await shot(page, "13-2fa-login-challenge");
 
-  // ── 8. CONSOLE ERRORS ─────────────────────────────────────────────────
   console.log("\n" + "═".repeat(50));
   console.log("STEP 8: CONSOLE ERRORS COLLECTED");
   console.log("═".repeat(50));
@@ -307,7 +292,6 @@ async function shot(page, name) {
     if (msg.type() === "error") consoleErrors.push(msg.text());
   });
 
-  // ── SUMMARY ───────────────────────────────────────────────────────────
   console.log("\n" + "═".repeat(50));
   console.log("API CALLS LOG");
   console.log("═".repeat(50));

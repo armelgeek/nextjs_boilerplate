@@ -56,7 +56,7 @@ export default function PermissionsPage() {
 
   useEffect(() => {
     loadPermissions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   const loadPermissions = async () => {
@@ -75,24 +75,20 @@ export default function PermissionsPage() {
   const applyFilters = (permissionsList: Permission[], filterValues: PermissionFilterValues) => {
     let filtered = permissionsList;
 
-    // Filter by permission name
     if (filterValues.name) {
       filtered = filtered.filter(permission =>
         permission.name.toLowerCase().includes(filterValues.name.toLowerCase())
       );
     }
 
-    // Filter by resource
     if (filterValues.resource !== 'all') {
       filtered = filtered.filter(permission => permission.resource === filterValues.resource);
     }
 
-    // Filter by action
     if (filterValues.action !== 'all') {
       filtered = filtered.filter(permission => permission.action === filterValues.action);
     }
 
-    // Sort by resource and action
     filtered.sort((a, b) => {
       const resourceCompare = a.resource.localeCompare(b.resource);
       if (resourceCompare !== 0) return resourceCompare;
@@ -102,17 +98,15 @@ export default function PermissionsPage() {
     setFilteredPermissions(filtered);
   };
 
-  // Extract unique resources and actions from permissions
   const availableResources = Array.from(new Set(permissions.map(p => p.resource))).sort();
   const availableActions = Array.from(new Set(permissions.map(p => p.action))).sort();
 
   const handleFilterChange = (newFilters: PermissionFilterValues) => {
     setFilters(newFilters);
     applyFilters(permissions, newFilters);
-    setCurrentPage(1); // Reset to first page when filters change
+    setCurrentPage(1); 
   };
 
-  // Calculate pagination
   const totalPages = Math.ceil(filteredPermissions.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -120,7 +114,7 @@ export default function PermissionsPage() {
 
   const handleItemsPerPageChange = (value: string) => {
     setItemsPerPage(Number(value));
-    setCurrentPage(1); // Reset to first page when changing items per page
+    setCurrentPage(1); 
   };
 
   const handleDeleteClick = (id: string) => {
@@ -291,7 +285,7 @@ export default function PermissionsPage() {
                   </Table>
                 </div>
 
-                {/* Pagination Controls */}
+                {}
                 {filteredPermissions.length > 0 && (
                   <div className="flex items-center justify-between px-4 py-4">
                     <div className="flex items-center gap-2">
@@ -343,7 +337,7 @@ export default function PermissionsPage() {
           </div>
         </div>
 
-      {/* Delete Confirmation Dialog */}
+      {}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>

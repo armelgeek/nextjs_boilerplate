@@ -16,7 +16,7 @@ interface ListAdminsParams {
 }
 
 export async function listAdmins(params?: ListAdminsParams) {
-  // Check permission to read admins
+  
   await requirePermission("user", "read");
 
   const page = params?.page ?? 1;
@@ -25,7 +25,7 @@ export async function listAdmins(params?: ListAdminsParams) {
   const skip = (page - 1) * limit;
 
   try {
-    // Build where clause based on filters
+    
     const where: any = {};
 
     if (filters.name) {
@@ -54,7 +54,6 @@ export async function listAdmins(params?: ListAdminsParams) {
       where.role = filters.role;
     }
 
-    // Get total count for pagination
     const total = await db.user.count({ where });
 
     const admins = await db.user.findMany({

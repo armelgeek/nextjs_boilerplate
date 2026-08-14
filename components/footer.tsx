@@ -23,7 +23,7 @@ export function Footer() {
     <footer className="border-t">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          {/* Brand */}
+          {}
           <div className="md:col-span-1">
             <Link href="/" className="font-bold text-lg tracking-tight">
               {appConfig.name}
@@ -33,7 +33,7 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Product */}
+          {}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">Product</h3>
             <ul className="space-y-2.5">
@@ -50,7 +50,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Account */}
+          {}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">Account</h3>
             <ul className="space-y-2.5">
@@ -67,7 +67,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Legal */}
+          {}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">Legal</h3>
             <ul className="space-y-2.5">

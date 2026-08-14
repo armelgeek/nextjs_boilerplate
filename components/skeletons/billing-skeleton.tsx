@@ -4,13 +4,13 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 export function BillingPageSkeleton() {
   return (
     <div className="container max-w-4xl mx-auto flex-1 py-10 px-4">
-      {/* Heading */}
+      {}
       <div className="mb-8 space-y-2">
         <Skeleton className="h-8 w-32" />
         <Skeleton className="h-4 w-72" />
       </div>
 
-      {/* Current plan card */}
+      {}
       <Card className="mb-6">
         <CardHeader className="space-y-2">
           <Skeleton className="h-5 w-36" />
@@ -36,7 +36,7 @@ export function BillingPageSkeleton() {
         </CardContent>
       </Card>
 
-      {/* Usage / features card */}
+      {}
       <Card>
         <CardHeader className="space-y-2">
           <Skeleton className="h-5 w-28" />

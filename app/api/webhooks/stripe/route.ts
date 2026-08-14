@@ -8,14 +8,12 @@ import { auditLogger, AuditEventType } from "@/lib/security/audit-logger";
 import { createEventGuard } from "@/lib/security/webhook-event-store";
 import { EmailService } from "@/lib/email-service";
 
-// Rate limiter: 100 requests per 15 minutes per IP
 const rateLimiter = createRateLimitMiddleware(100, 15 * 60 * 1000);
 
 export async function POST(request: NextRequest) {
   const requestHeaders = await headers();
   const clientIp = getClientIdentifier(requestHeaders);
-  
-  // Apply rate limiting
+
   const rateLimit = rateLimiter(clientIp);
   if (!rateLimit.allowed) {
     auditLogger.logSecurity(
@@ -95,7 +93,6 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Check for replay attacks and duplicate processing
   const eventGuard = createEventGuard(event.id, event.type, event.created);
   if (!eventGuard.shouldProcess) {
     auditLogger.logWebhook(
@@ -220,9 +217,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
   }
 
   try {
-    // --- Server-side payment validation (defense-in-depth) ---
 
-    // 1. Look up the plan to get expected amounts
     const plan = await prisma.plan.findUnique({
       where: { id: planId },
     });
@@ -241,7 +236,6 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       throw new Error(`Plan not found: ${planId}`);
     }
 
-    // 2. Validate payment amount matches expected plan price
     if (session.amount_total !== plan.amount) {
       auditLogger.logPayment(
         AuditEventType.PAYMENT_VALIDATION_FAILED,
@@ -262,7 +256,6 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       );
     }
 
-    // 3. Validate currency matches expected plan currency
     if (session.currency !== plan.currency) {
       auditLogger.logPayment(
         AuditEventType.PAYMENT_VALIDATION_FAILED,
@@ -282,13 +275,11 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       );
     }
 
-    // 4. Fetch user early — needed for customer validation and email notification
     const user = await prisma.user.findUnique({
       where: { id: userId },
       select: { stripeCustomerId: true, email: true, name: true },
     });
 
-    // 5. Validate the Stripe customer ID belongs to this user
     if (user?.stripeCustomerId && session.customer !== user.stripeCustomerId) {
       auditLogger.logPayment(
         AuditEventType.PAYMENT_VALIDATION_FAILED,
@@ -308,7 +299,6 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       );
     }
 
-    // 6. Retrieve subscription and validate interval
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
     const subscriptionInterval =
@@ -331,8 +321,6 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
         `Interval mismatch: expected ${plan.interval}, got ${subscriptionInterval}`
       );
     }
-
-    // --- All validations passed — proceed with database writes ---
 
     const dbSubscription = await prisma.subscription.upsert({
       where: { stripeSubscriptionId: subscriptionId },
@@ -369,7 +357,6 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       }
     );
 
-    // Send subscription confirmation email (reuse user fetched above)
     try {
       if (user) {
         const emailService = new EmailService();
@@ -393,7 +380,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
         data: {
           userId,
           stripePaymentId: session.payment_intent as string,
-          // Non-null: amount_total and currency were validated equal to plan values above
+          
           amount: session.amount_total!,
           currency: session.currency!,
           status: "succeeded",
@@ -470,7 +457,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
 
 async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   try {
-    // Fetch before update so we can notify the user
+    
     const dbSubscription = await prisma.subscription.findFirst({
       where: { stripeSubscriptionId: subscription.id },
     });
@@ -491,7 +478,6 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
       }
     );
 
-    // Send cancellation email
     if (dbSubscription) {
       try {
         const user = await prisma.user.findUnique({
@@ -572,7 +558,6 @@ async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
       }
     );
 
-    // Send payment receipt email
     try {
       const user = await prisma.user.findUnique({
         where: { id: subscription.userId },

@@ -27,7 +27,6 @@ export async function submitContact(
 
   const { fullName, email, phoneNumber, message } = parsed.data;
 
-  // Capture the submitter's IP for spam / audit purposes
   const headersList = await headers();
   const ipAddress =
     headersList.get('x-forwarded-for')?.split(',')[0]?.trim() ||
@@ -35,7 +34,7 @@ export async function submitContact(
     null;
 
   try {
-    // Persist the submission before attempting to send email
+    
     await prisma.contactSubmission.create({
       data: {
         fullName,
@@ -46,8 +45,6 @@ export async function submitContact(
       },
     });
 
-    // Send email notification to admin (non-blocking — failure returns success
-    // so the user isn't penalised for a transient SMTP error)
     try {
       const adminEmailSetting = await prisma.setting.findUnique({
         where: { key: 'email' },

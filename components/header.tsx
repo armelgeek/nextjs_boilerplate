@@ -62,7 +62,7 @@ export function Header({ user, isAdmin }: HeaderProps) {
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
         <Logo />
 
-        {/* Desktop navigation */}
+        {}
         {user ? (
           <>
             <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
@@ -139,7 +139,7 @@ export function Header({ user, isAdmin }: HeaderProps) {
           </nav>
         )}
 
-        {/* Mobile hamburger button */}
+        {}
         <button
           className="md:hidden p-2 rounded-md hover:bg-muted transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -154,7 +154,7 @@ export function Header({ user, isAdmin }: HeaderProps) {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-border bg-background">
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-3" aria-label="Mobile navigation">

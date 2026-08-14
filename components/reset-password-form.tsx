@@ -40,7 +40,7 @@ export function ResetPasswordForm({
   const [token, setToken] = useState<string | null>(null)
 
   useEffect(() => {
-    // Get token from URL
+    
     const params = new URLSearchParams(window.location.search)
     const tokenParam = params.get('token')
     if (tokenParam) {
@@ -64,7 +64,6 @@ export function ResetPasswordForm({
     const password = formData.get("password") as string
     const confirmPassword = formData.get("confirm-password") as string
 
-    // Validate with Zod
     const validation = resetPasswordSchema.safeParse({ 
       password, 
       confirmPassword 

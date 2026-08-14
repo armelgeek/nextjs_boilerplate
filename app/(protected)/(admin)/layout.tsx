@@ -10,8 +10,7 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // This will redirect to "/" if user is not an admin
-  // and to "/login" if not authenticated
+
   await requireAdmin();
 
   const session = await auth.api.getSession({

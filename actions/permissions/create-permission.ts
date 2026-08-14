@@ -11,12 +11,11 @@ interface CreatePermissionInput {
 }
 
 export async function createPermission(data: CreatePermissionInput) {
-  // Check permission to create permissions
+  
   await requirePermission("permission", "create");
 
   const { name, description, resource, action } = data;
 
-  // Validate required fields
   if (!name || name.trim() === "") {
     return { error: "Permission name is required" };
   }
@@ -30,7 +29,7 @@ export async function createPermission(data: CreatePermissionInput) {
   }
 
   try {
-    // Check if permission already exists by name
+    
     const existingPermission = await prisma.permission.findUnique({
       where: { name: name.trim() },
     });
@@ -41,7 +40,6 @@ export async function createPermission(data: CreatePermissionInput) {
       };
     }
 
-    // Check if resource-action combination already exists
     const existingResourceAction = await prisma.permission.findFirst({
       where: {
         resource: resource.trim(),
@@ -55,7 +53,6 @@ export async function createPermission(data: CreatePermissionInput) {
       };
     }
 
-    // Create permission
     const permission = await prisma.permission.create({
       data: {
         name: name.trim(),

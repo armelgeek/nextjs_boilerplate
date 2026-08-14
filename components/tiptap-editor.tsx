@@ -50,23 +50,21 @@ interface MenuBarProps {
   onToggleSource: () => void;
 }
 
-// Clean empty paragraphs and normalize spacing
 const cleanEmptyParagraphs = (html: string): string => {
   let cleaned = html;
   let previous = '';
-  
-  // Keep cleaning until no more changes occur
+
   while (cleaned !== previous) {
     previous = cleaned;
     cleaned = cleaned
-      .replace(/<p><\/p>/gi, '')                    // Empty <p></p>
-      .replace(/<p>\s*<\/p>/gi, '')                 // <p> with whitespace </p>
-      .replace(/<p><br><\/p>/gi, '')                // <p><br></p>
-      .replace(/<p><br\/><\/p>/gi, '')              // <p><br/></p>
-      .replace(/<p><br \/><\/p>/gi, '')             // <p><br /></p>
-      .replace(/<p>\s*<br\s*\/?>\s*<\/p>/gi, '')    // Any variation of <p> <br> </p>
-      .replace(/<p>&nbsp;<\/p>/gi, '')              // <p>&nbsp;</p>
-      .replace(/<p>\s*&nbsp;\s*<\/p>/gi, '');       // <p> &nbsp; </p>
+      .replace(/<p><\/p>/gi, '')                    
+      .replace(/<p>\s*<\/p>/gi, '')                 
+      .replace(/<p><br><\/p>/gi, '')                
+      .replace(/<p><br\/><\/p>/gi, '')              
+      .replace(/<p><br \/><\/p>/gi, '')             
+      .replace(/<p>\s*<br\s*\/?>\s*<\/p>/gi, '')    
+      .replace(/<p>&nbsp;<\/p>/gi, '')              
+      .replace(/<p>\s*&nbsp;\s*<\/p>/gi, '');       
   }
   
   return cleaned.trim();
@@ -342,7 +340,7 @@ export const TiptapEditor = ({ content, onChange, placeholder = 'Start writing..
     immediatelyRender: false,
     extensions: [
       StarterKit.configure({
-        hardBreak: false, // Force proper paragraphs instead of <br> tags
+        hardBreak: false, 
       }),
       Underline,
       Link.configure({
@@ -403,10 +401,10 @@ export const TiptapEditor = ({ content, onChange, placeholder = 'Start writing..
     if (!editor) return;
 
     if (!showSource) {
-      // Switching to source view
+      
       setSourceCode(editor.getHTML());
     } else {
-      // Switching back to editor view
+      
       const cleanedSource = cleanEmptyParagraphs(sourceCode);
       editor.commands.setContent(cleanedSource);
       onChange(cleanedSource);

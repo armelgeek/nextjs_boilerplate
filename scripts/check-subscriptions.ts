@@ -48,7 +48,6 @@ async function main() {
     });
   }
 
-  // Also check payments
   const payments = await prisma.payment.findMany({
     orderBy: {
       createdAt: "desc",

@@ -1,4 +1,4 @@
-// App configuration from environment variables
+
 export const appConfig = {
   name: process.env.NEXT_PUBLIC_APP_NAME || "SaaS App",
   description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || "A production-ready SaaS boilerplate",

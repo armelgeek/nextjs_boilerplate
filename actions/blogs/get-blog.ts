@@ -4,7 +4,7 @@ import { db } from '@/lib/db';
 import { requirePermission } from '@/lib/auth-helpers';
 
 export async function getBlog(id: string) {
-  // Check permission to read blogs
+  
   await requirePermission("blog", "read");
 
   if (!id) {

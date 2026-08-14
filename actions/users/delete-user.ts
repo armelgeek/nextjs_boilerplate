@@ -4,10 +4,9 @@ import { db } from '@/lib/db';
 import { requirePermission, getSession } from '@/lib/auth-helpers';
 
 export async function deleteUser(id: string) {
-  // Check permission to delete users
-  await requirePermission("user", "delete");
   
-  // Get session to check if deleting own account
+  await requirePermission("user", "delete");
+
   const session = await getSession();
 
   if (!id) {
@@ -15,7 +14,7 @@ export async function deleteUser(id: string) {
   }
 
   try {
-    // Check if user exists
+    
     const existingUser = await db.user.findUnique({
       where: { id },
     });
@@ -24,17 +23,14 @@ export async function deleteUser(id: string) {
       return { error: 'User not found' };
     }
 
-    // Check if users depend on this user's role
     const usersWithRole = await db.user.count({
       where: { roleId: existingUser.roleId || undefined },
     });
 
-    // Prevent deleting the currently logged-in user
     if (session && session.user.id === id) {
       return { error: 'You cannot delete your own account' };
     }
 
-    // Delete user (this will cascade delete sessions and accounts due to schema)
     await db.user.delete({
       where: { id },
     });

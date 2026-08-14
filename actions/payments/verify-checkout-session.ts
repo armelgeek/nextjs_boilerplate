@@ -23,7 +23,6 @@ export const verifyCheckoutSession = async (sessionId: string) => {
 
     console.log("[VERIFY] Authenticated user:", session.user.id, session.user.email);
 
-    // Retrieve the checkout session from Stripe
     console.log("[VERIFY] Retrieving checkout session from Stripe...");
     const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId);
 
@@ -70,7 +69,6 @@ export const verifyCheckoutSession = async (sessionId: string) => {
 
     console.log("[VERIFY] All required data present");
 
-    // Check if subscription already exists
     console.log("[VERIFY] Checking for existing subscription in database...");
     const existingSubscription = await prisma.subscription.findFirst({
       where: { stripeSubscriptionId: subscriptionId },
@@ -87,7 +85,6 @@ export const verifyCheckoutSession = async (sessionId: string) => {
 
     console.log("[VERIFY] No existing subscription found, proceeding to create...");
 
-    // Retrieve subscription details from Stripe
     console.log("[VERIFY] Retrieving full subscription details from Stripe...");
     const stripeSubscription = await stripe.subscriptions.retrieve(subscriptionId);
     console.log("[VERIFY] Stripe subscription details:", {
@@ -98,7 +95,6 @@ export const verifyCheckoutSession = async (sessionId: string) => {
       cancel_at_period_end: stripeSubscription.cancel_at_period_end,
     });
 
-    // Create subscription in database
     console.log("[VERIFY] Creating subscription in database with data:", {
       userId,
       planId,
@@ -130,7 +126,6 @@ export const verifyCheckoutSession = async (sessionId: string) => {
       status: createdSubscription.status,
     });
 
-    // Create payment record if payment_intent exists
     if (checkoutSession.payment_intent) {
       console.log("[VERIFY] Creating payment record for payment intent:", checkoutSession.payment_intent);
       const paymentRecord = await prisma.payment.create({

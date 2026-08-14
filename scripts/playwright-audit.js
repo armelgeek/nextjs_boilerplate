@@ -1,4 +1,4 @@
-// @ts-check
+
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
@@ -169,9 +169,6 @@ async function testHomepage(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 2a. SIGNUP
-// ─────────────────────────────────────────────
 async function testSignup(browser) {
   log('\n──────────────────────────────────────────');
   log('2a. SIGNUP PAGE (/signup)');
@@ -211,7 +208,6 @@ async function testSignup(browser) {
       logFail('No submit button found on signup page');
     }
 
-    // Test 2: Invalid email
     await page.reload({ waitUntil: 'domcontentloaded' });
     if (await nameInput.count()) await nameInput.fill('Test User');
     if (await emailInput.count()) await emailInput.fill('notanemail');
@@ -228,7 +224,6 @@ async function testSignup(browser) {
       results.formValidation['signup'].push({ test: 'invalid_email', passed: false, errors: emailErrors });
     }
 
-    // Test 3: Weak password "123"
     await page.reload({ waitUntil: 'domcontentloaded' });
     if (await nameInput.count()) await nameInput.fill('Test User');
     if (await emailInput.count()) await emailInput.fill('test@example.com');
@@ -245,7 +240,6 @@ async function testSignup(browser) {
       results.formValidation['signup'].push({ test: 'weak_password', passed: false, errors: pwdErrors });
     }
 
-    // Test 4: Mismatched passwords
     await page.reload({ waitUntil: 'domcontentloaded' });
     if (await nameInput.count()) await nameInput.fill('Test User');
     if (await emailInput.count()) await emailInput.fill('test@example.com');
@@ -262,7 +256,6 @@ async function testSignup(browser) {
       results.formValidation['signup'].push({ test: 'password_mismatch', passed: false, errors: mismatchErrors });
     }
 
-    // Test 5: Password visibility toggle
     await page.reload({ waitUntil: 'domcontentloaded' });
     const toggleSelectors = [
       'button[aria-label*="password" i]',
@@ -314,9 +307,6 @@ async function testSignup(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 2b. LOGIN
-// ─────────────────────────────────────────────
 async function testLogin(browser) {
   log('\n──────────────────────────────────────────');
   log('2b. LOGIN PAGE (/login)');
@@ -349,7 +339,6 @@ async function testLogin(browser) {
       }
     }
 
-    // Test 2: Invalid email
     await page.reload({ waitUntil: 'domcontentloaded' });
     if (await emailInput.count()) await emailInput.fill('notanemail');
     if (await passwordInput.count()) await passwordInput.fill('password123');
@@ -364,7 +353,6 @@ async function testLogin(browser) {
       results.formValidation['login'].push({ test: 'invalid_email', passed: false, errors: emailErrors });
     }
 
-    // Test 3: Short password
     await page.reload({ waitUntil: 'domcontentloaded' });
     if (await emailInput.count()) await emailInput.fill('test@example.com');
     if (await passwordInput.count()) await passwordInput.fill('123');
@@ -379,7 +367,6 @@ async function testLogin(browser) {
       results.formValidation['login'].push({ test: 'short_password', passed: false, errors: pwdErrors });
     }
 
-    // Test 4: Forgot Password link
     await page.reload({ waitUntil: 'domcontentloaded' });
     const forgotLink = page.locator('a[href*="forgot"], a:text-matches("forgot", "i"), a:text-matches("Forgot", "i")').first();
     if (await forgotLink.count()) {
@@ -432,9 +419,6 @@ async function testLogin(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 2c. FORGOT PASSWORD
-// ─────────────────────────────────────────────
 async function testForgotPassword(browser) {
   log('\n──────────────────────────────────────────');
   log('2c. FORGOT PASSWORD (/forgot-password)');
@@ -468,7 +452,6 @@ async function testForgotPassword(browser) {
       logFail('No submit button on forgot-password page');
     }
 
-    // Test 2: Invalid email
     await page.reload({ waitUntil: 'domcontentloaded' });
     if (await emailInput.count()) await emailInput.fill('notanemail');
     if (await submitBtn.count()) await submitBtn.click();
@@ -493,9 +476,6 @@ async function testForgotPassword(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 2d. RESET PASSWORD
-// ─────────────────────────────────────────────
 async function testResetPassword(browser) {
   log('\n──────────────────────────────────────────');
   log('2d. RESET PASSWORD (/reset-password)');
@@ -516,7 +496,6 @@ async function testResetPassword(browser) {
     logInfo(`Reset password URL: ${currentUrl}`);
     logInfo(`Content preview: ${bodyText.substring(0, 300)}`);
 
-    // Try with invalid token
     await page.goto(`${BASE_URL}/reset-password?token=invalid-test-token-abc123`, { waitUntil: 'domcontentloaded', timeout: 10000 });
     const tokenUrl = page.url();
     const tokenBody = await page.locator('body').innerText().catch(() => '');
@@ -546,9 +525,6 @@ async function testResetPassword(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 3. PROTECTED ROUTES (UNAUTHENTICATED)
-// ─────────────────────────────────────────────
 async function testProtectedRoutes(browser) {
   log('\n══════════════════════════════════════════');
   log('3. PROTECTED ROUTE ACCESS (UNAUTHENTICATED)');
@@ -615,9 +591,6 @@ async function testProtectedRoutes(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 4. CONTACT FORM
-// ─────────────────────────────────────────────
 async function testContact(browser) {
   log('\n══════════════════════════════════════════');
   log('4. CONTACT FORM (/contact)');
@@ -656,7 +629,6 @@ async function testContact(browser) {
       logWarn('No submit button found on /contact');
     }
 
-    // Test 2: Invalid email
     await page.reload({ waitUntil: 'domcontentloaded' });
     if (await nameInput.count()) await nameInput.fill('John Doe');
     if (await emailInput.count()) await emailInput.fill('notanemail');
@@ -672,7 +644,6 @@ async function testContact(browser) {
       results.formValidation['contact'].push({ test: 'invalid_email', passed: false, errors: emailErrors });
     }
 
-    // Test 3: Short message (<10 chars)
     await page.reload({ waitUntil: 'domcontentloaded' });
     if (await nameInput.count()) await nameInput.fill('John Doe');
     if (await emailInput.count()) await emailInput.fill('john@example.com');
@@ -688,7 +659,6 @@ async function testContact(browser) {
       results.formValidation['contact'].push({ test: 'short_message', passed: false, errors: msgErrors });
     }
 
-    // Test 4: XSS payload
     await page.reload({ waitUntil: 'domcontentloaded' });
     const xssPayload = "<script>alert('XSS')</script>";
     if (await nameInput.count()) await nameInput.fill(xssPayload);
@@ -706,7 +676,6 @@ async function testContact(browser) {
       results.formValidation['contact'].push({ test: 'xss_input', passed: false });
     }
 
-    // Test 5: SQL injection
     await page.reload({ waitUntil: 'domcontentloaded' });
     if (await nameInput.count()) await nameInput.fill('Normal User');
     if (await emailInput.count()) await emailInput.fill('sql@test.com');
@@ -723,7 +692,6 @@ async function testContact(browser) {
       results.formValidation['contact'].push({ test: 'sql_injection', passed: false });
     }
 
-    // Test 6: Very long name (500 chars)
     await page.reload({ waitUntil: 'domcontentloaded' });
     if (await nameInput.count()) await nameInput.fill('A'.repeat(500));
     if (await emailInput.count()) await emailInput.fill('long@test.com');
@@ -756,9 +724,6 @@ async function testContact(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 5. STATIC PAGES
-// ─────────────────────────────────────────────
 async function testStaticPages(browser) {
   log('\n══════════════════════════════════════════');
   log('5. STATIC PAGES');
@@ -810,9 +775,6 @@ async function testStaticPages(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 6. MOBILE RESPONSIVENESS
-// ─────────────────────────────────────────────
 async function testMobileResponsiveness(browser) {
   log('\n══════════════════════════════════════════');
   log('6. MOBILE RESPONSIVENESS TESTING');
@@ -878,9 +840,6 @@ async function testMobileResponsiveness(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 7. EDGE CASES
-// ─────────────────────────────────────────────
 async function testEdgeCases(browser) {
   log('\n══════════════════════════════════════════');
   log('7. EDGE CASE TESTING');
@@ -890,7 +849,7 @@ async function testEdgeCases(browser) {
   await page.setViewportSize({ width: 1280, height: 800 });
 
   try {
-    // Edge 1: Very long email
+    
     await page.goto(`${BASE_URL}/login`, { waitUntil: 'domcontentloaded', timeout: 12000 });
     const emailInput = page.locator('input[type="email"], input[name="email"]').first();
     const pwdInput = page.locator('input[type="password"]').first();
@@ -905,7 +864,6 @@ async function testEdgeCases(browser) {
       logPass(`Very long email (${longEmail.length} chars) submitted without browser crash`);
     }
 
-    // Edge 2: Unicode + emoji name on signup
     await page.goto(`${BASE_URL}/signup`, { waitUntil: 'domcontentloaded', timeout: 12000 });
     const nameInput = page.locator('input[name="name"], input[placeholder*="name" i]').first();
     if (await nameInput.count()) {
@@ -940,7 +898,6 @@ async function testEdgeCases(browser) {
       logWarn(`Browser back button navigation: ${backUrl}`);
     }
 
-    // Edge 5: Large textarea input
     await page.goto(`${BASE_URL}/contact`, { waitUntil: 'domcontentloaded', timeout: 12000 });
     const textarea = page.locator('textarea').first();
     if (await textarea.count()) {
@@ -955,9 +912,6 @@ async function testEdgeCases(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 8. 404 PAGE
-// ─────────────────────────────────────────────
 async function test404(browser) {
   log('\n══════════════════════════════════════════');
   log('8. 404 ERROR PAGE');
@@ -1005,9 +959,6 @@ async function test404(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 9. SECURITY HEADERS
-// ─────────────────────────────────────────────
 async function testSecurityHeaders(browser) {
   log('\n══════════════════════════════════════════');
   log('9. SECURITY HEADERS CHECK');
@@ -1057,9 +1008,6 @@ async function testSecurityHeaders(browser) {
   }
 }
 
-// ─────────────────────────────────────────────
-// 10. ACCESSIBILITY
-// ─────────────────────────────────────────────
 async function testAccessibility(browser) {
   log('\n══════════════════════════════════════════');
   log('10. ACCESSIBILITY CHECKS');
@@ -1171,7 +1119,7 @@ async function testNavigation(browser) {
           const h = l.href;
           return h.startsWith('/') && !h.startsWith('//') && !h.startsWith('#');
         })
-        .filter((l, idx, arr) => arr.findIndex(x => x.href === l.href) === idx); // deduplicate
+        .filter((l, idx, arr) => arr.findIndex(x => x.href === l.href) === idx); 
     }, BASE_URL);
 
     logInfo(`Unique internal links on homepage: ${allLinks.length}`);
@@ -1566,9 +1514,6 @@ ${results.passed.map(p => `- ✅ ${p}`).join('\n')}
   log(`\n📄 Report saved: ${reportPath}`);
 }
 
-// ─────────────────────────────────────────────
-// MAIN RUNNER
-// ─────────────────────────────────────────────
 async function runAudit() {
   log('╔══════════════════════════════════════════╗');
   log('║     PLAYWRIGHT QA AUDIT - STARTING       ║');
@@ -1615,7 +1560,6 @@ async function runAudit() {
 
   generateReport();
 
-  // Save JSON summary
   const summaryPath = path.join(SCREENSHOTS_DIR, 'audit-summary.json');
   fs.writeFileSync(summaryPath, JSON.stringify({
     date: new Date().toISOString(),

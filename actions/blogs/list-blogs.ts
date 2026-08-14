@@ -15,7 +15,7 @@ interface ListBlogsParams {
 }
 
 export async function listBlogs(params?: ListBlogsParams) {
-  // Check permission to read blogs
+  
   await requirePermission("blog", "read");
 
   const page = params?.page ?? 1;
@@ -24,7 +24,7 @@ export async function listBlogs(params?: ListBlogsParams) {
   const skip = (page - 1) * limit;
 
   try {
-    // Build where clause based on filters
+    
     const where: any = {};
 
     if (filters.title) {
@@ -48,7 +48,6 @@ export async function listBlogs(params?: ListBlogsParams) {
       };
     }
 
-    // Get total count for pagination
     const total = await db.blog.count({ where });
 
     const blogs = await db.blog.findMany({

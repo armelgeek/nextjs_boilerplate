@@ -46,7 +46,7 @@ export default function EditAdminPage() {
   useEffect(() => {
     loadRoles();
     loadAdmin();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [adminId]);
 
   const loadRoles = async () => {
@@ -80,7 +80,6 @@ export default function EditAdminPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate phone if provided
     if (phone && phone.trim() !== '') {
       try {
         if (!isValidPhoneNumber(phone)) {
@@ -135,7 +134,7 @@ export default function EditAdminPage() {
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-          {/* Breadcrumb */}
+          {}
           <div className="px-4 lg:px-6">
                 <Breadcrumb>
                   <BreadcrumbList>
@@ -154,7 +153,7 @@ export default function EditAdminPage() {
                 </Breadcrumb>
               </div>
 
-              {/* Header and Content */}
+              {}
               <div className="px-4 lg:px-6">
                 <div className="mb-6 flex items-center justify-between">
                   <div>
@@ -170,7 +169,7 @@ export default function EditAdminPage() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="w-full space-y-6">
-                  {/* General Information */}
+                  {}
                   <div className="space-y-4 p-6 border rounded-lg">
                     <h2 className="text-lg font-semibold">Account Information</h2>
 
@@ -269,7 +268,7 @@ export default function EditAdminPage() {
                     </div>
                   </div>
 
-                  {/* Password Change */}
+                  {}
                   <div className="space-y-4 p-6 border rounded-lg">
                     <h2 className="text-lg font-semibold">Change Password</h2>
                     <p className="text-sm text-muted-foreground">
@@ -303,7 +302,7 @@ export default function EditAdminPage() {
                     </div>
                   </div>
 
-                  {/* Actions */}
+                  {}
                   <div className="flex gap-4">
                     <Button
                       type="button"

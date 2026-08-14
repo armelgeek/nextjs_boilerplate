@@ -44,9 +44,9 @@ export function DashboardContent({ session }: { session: Session }) {
     <div className="flex min-h-screen flex-col">
       <Header user={session.user} />
 
-      {/* Main Content */}
+      {}
       <div className="container mx-auto max-w-4xl flex-1 space-y-6 p-6">
-        {/* Welcome Section */}
+        {}
         <div>
           <h2 className="text-3xl font-bold">Dashboard</h2>
           <p className="text-muted-foreground">
@@ -54,7 +54,7 @@ export function DashboardContent({ session }: { session: Session }) {
           </p>
         </div>
 
-        {/* User Profile Card */}
+        {}
         <Card>
           <CardHeader>
             <CardTitle>Profile Information</CardTitle>
@@ -147,7 +147,7 @@ export function DashboardContent({ session }: { session: Session }) {
           </CardContent>
         </Card>
 
-        {/* Quick Actions */}
+        {}
         <Card>
           <CardHeader>
             <CardTitle>Quick Actions</CardTitle>

@@ -18,17 +18,15 @@ interface UpdateAdminInput {
 }
 
 export async function updateAdmin(data: UpdateAdminInput) {
-  // Check permission to update admins
+  
   const session = await requirePermission("user", "update");
 
   const { id, name, email, phone, emailVerified, password, role, isAdmin } = data;
 
-  // Validate required fields
   if (!id || !name || !email) {
     return { error: 'ID, name, and email are required' };
   }
 
-  // IDOR guard: verify the current user is allowed to update this specific user
   const permitted = await canAccessUser(session.user.id, id);
   if (!permitted) {
     auditLogger.logSecurity(
@@ -40,7 +38,7 @@ export async function updateAdmin(data: UpdateAdminInput) {
   }
 
   try {
-    // Check if admin exists
+    
     const existingAdmin = await db.user.findUnique({
       where: { id },
     });
@@ -49,7 +47,6 @@ export async function updateAdmin(data: UpdateAdminInput) {
       return { error: 'Admin not found' };
     }
 
-    // Check if email is already used by another admin
     const duplicateAdmin = await db.user.findFirst({
       where: {
         AND: [
@@ -63,7 +60,6 @@ export async function updateAdmin(data: UpdateAdminInput) {
       return { error: 'An admin with this email already exists' };
     }
 
-    // Prepare update data
     const updateData: Record<string, string | boolean | null | undefined> = {
       name,
       email,
@@ -71,34 +67,29 @@ export async function updateAdmin(data: UpdateAdminInput) {
       emailVerified: emailVerified ?? existingAdmin.emailVerified,
     };
 
-    // Update role if provided
     if (role !== undefined) {
       updateData.roleId = role && role !== 'user' ? role : null;
     }
 
-    // Update isAdmin if provided
     if (isAdmin !== undefined) {
       updateData.isAdmin = isAdmin;
     }
 
-    // Update admin
     const admin = await db.user.update({
       where: { id },
       data: updateData,
     });
 
-    // Update password if provided using better-auth password hashing
     if (password && password.trim() !== '') {
-      // Validate password length
+      
       if (password.length < 8) {
         return { error: 'Password must be at least 8 characters long' };
       }
 
       try {
-        // Use better-auth's hashPassword to properly hash the password
+        
         const hashedPassword = await hashPassword(password);
 
-        // Find or create the password account
         const account = await db.account.findFirst({
           where: {
             userId: id,

@@ -5,7 +5,6 @@ import { stripe } from "../lib/payments/stripe/config";
 async function main() {
   console.log("\n🔄 Auto-Syncing All Subscriptions from Stripe\n");
 
-  // Get all users with Stripe Customer IDs
   const users = await prisma.user.findMany({
     where: {
       stripeCustomerId: { not: null },
@@ -33,7 +32,6 @@ async function main() {
     try {
       console.log(`🔍 Checking ${user.name} (${user.email})...`);
 
-      // Get subscriptions from Stripe
       const stripeSubscriptions = await stripe.subscriptions.list({
         customer: user.stripeCustomerId,
         limit: 10,
@@ -45,7 +43,7 @@ async function main() {
       }
 
       for (const stripeSub of stripeSubscriptions.data) {
-        // Check if subscription already exists
+        
         const existingSub = await prisma.subscription.findFirst({
           where: { stripeSubscriptionId: stripeSub.id },
         });
@@ -55,7 +53,6 @@ async function main() {
           continue;
         }
 
-        // Get the price ID
         const priceId = stripeSub.items.data[0]?.price.id;
 
         if (!priceId) {
@@ -63,7 +60,6 @@ async function main() {
           continue;
         }
 
-        // Find the plan
         const plan = await prisma.plan.findFirst({
           where: { stripePriceId: priceId },
         });

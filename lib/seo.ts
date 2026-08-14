@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 
 const baseUrl = appConfig.url;
 
-// ─── Reusable metadata builder ──────────────────────────────────────────────
 type PageSeoOptions = {
   title: string;
   description: string;
@@ -67,8 +66,6 @@ export const buildMetadata = ({
     }),
   };
 };
-
-// ─── JSON-LD Schema Generators ──────────────────────────────────────────────
 
 export const organizationSchema = () => ({
   "@context": "https://schema.org",

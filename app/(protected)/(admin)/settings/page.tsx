@@ -33,21 +33,19 @@ import { updateSettings } from '@/actions/settings/update-settings';
 import { IconLoader2 } from '@tabler/icons-react';
 
 interface SettingsData {
-  // Meta Tags
+  
   siteTitle: string;
   siteDescription: string;
   siteKeywords: string;
   ogImage: string;
-  
-  // Social Media
+
   facebook: string;
   twitter: string;
   instagram: string;
   linkedin: string;
   youtube: string;
   tiktok: string;
-  
-  // Contact Information
+
   companyName: string;
   email: string;
   phone: string;
@@ -56,16 +54,13 @@ interface SettingsData {
   state: string;
   zipCode: string;
   country: string;
-  
-  // Business Hours
+
   businessHours: string;
-  
-  // Additional
+
   googleMapsUrl: string;
   whatsappNumber: string;
   footerText: string;
-  
-  // Index signature
+
   [key: string]: string;
 }
 
@@ -169,7 +164,7 @@ export default function SettingsPage() {
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-          {/* Breadcrumb */}
+          {}
           <div className="px-4 lg:px-6">
                 <Breadcrumb>
                   <BreadcrumbList>
@@ -184,7 +179,7 @@ export default function SettingsPage() {
                 </Breadcrumb>
               </div>
 
-              {/* Header and Content */}
+              {}
               <div className="px-4 lg:px-6">
                 <div className="flex items-center justify-between mb-6">
                   <div>
@@ -205,7 +200,7 @@ export default function SettingsPage() {
                   </Button>
                 </div>
 
-                {/* Settings Tabs */}
+                {}
                 <Tabs defaultValue="meta" className="space-y-4">
             <TabsList>
               <TabsTrigger value="meta">Meta Tags</TabsTrigger>
@@ -214,7 +209,7 @@ export default function SettingsPage() {
               <TabsTrigger value="additional">Additional</TabsTrigger>
             </TabsList>
 
-            {/* Meta Tags Tab */}
+            {}
             <TabsContent value="meta" className="space-y-4">
               <Card>
                 <CardHeader>
@@ -271,7 +266,7 @@ export default function SettingsPage() {
               </Card>
             </TabsContent>
 
-            {/* Social Media Tab */}
+            {}
             <TabsContent value="social" className="space-y-4">
               <Card>
                 <CardHeader>
@@ -346,7 +341,7 @@ export default function SettingsPage() {
               </Card>
             </TabsContent>
 
-            {/* Contact Information Tab */}
+            {}
             <TabsContent value="contact" className="space-y-4">
               <Card>
                 <CardHeader>
@@ -455,7 +450,7 @@ export default function SettingsPage() {
               </Card>
             </TabsContent>
 
-            {/* Additional Settings Tab */}
+            {}
             <TabsContent value="additional" className="space-y-4">
               <Card>
                 <CardHeader>
@@ -506,7 +501,7 @@ export default function SettingsPage() {
             </TabsContent>
                 </Tabs>
 
-                {/* Bottom Save Button */}
+                {}
                 <div className="flex justify-end mt-4">
                   <Button size="sm" onClick={handleSave} disabled={saving}>
                     {saving ? (

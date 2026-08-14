@@ -3,7 +3,7 @@
 import { db } from '@/lib/db';
 
 const PUBLIC_SETTING_KEYS = [
-  // Contact Info
+  
   'companyName',
   'email',
   'phone',
@@ -13,11 +13,11 @@ const PUBLIC_SETTING_KEYS = [
   'zipCode',
   'country',
   'businessHours',
-  // Additional
+  
   'googleMapsUrl',
   'whatsappNumber',
   'footerText',
-  // Social Media
+  
   'facebook',
   'twitter',
   'instagram',

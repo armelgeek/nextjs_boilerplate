@@ -88,7 +88,7 @@ export default async function ContactPage() {
       <Header user={session?.user} isAdmin={isAdmin} />
 
       <main className="flex-1">
-        {/* Hero */}
+        {}
         <section className="border-b bg-muted/30 py-16 text-center">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Contact Us</h1>
@@ -98,10 +98,10 @@ export default async function ContactPage() {
           </div>
         </section>
 
-        {/* Contact Info + Form */}
+        {}
         <section className="container mx-auto px-4 py-16">
           <div className="grid gap-10 lg:grid-cols-5">
-            {/* Left column \u2014 contact details */}
+            {}
             <div className="space-y-8 lg:col-span-2">
               <div>
                 <h2 className="text-xl font-semibold mb-2">Get in Touch</h2>
@@ -185,7 +185,7 @@ export default async function ContactPage() {
                 </ul>
               </div>
 
-              {/* Social Media */}
+              {}
               {socialLinks.length > 0 && (
                 <div>
                   <h2 className="text-xl font-semibold mb-4">Follow Us</h2>
@@ -213,14 +213,14 @@ export default async function ContactPage() {
               )}
             </div>
 
-            {/* Right column \u2014 contact form */}
+            {}
             <div className="lg:col-span-3">
               <ContactForm />
             </div>
           </div>
         </section>
 
-        {/* Google Maps */}
+        {}
         {settings?.googleMapsUrl && (
           <section className="border-t">
             <div className="container mx-auto px-4 py-16">

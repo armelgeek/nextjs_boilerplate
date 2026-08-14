@@ -12,18 +12,17 @@ interface UpdateRoleInput {
 }
 
 export async function updateRole(data: UpdateRoleInput) {
-  // Check permission to update roles
+  
   await requirePermission("role", "update");
 
   const { id, name, description, permissionIds } = data;
 
-  // Validate required fields
   if (!id || !name || name.trim() === "") {
     return { error: "ID and role name are required" };
   }
 
   try {
-    // Check if role exists
+    
     const existingRole = await prisma.role.findUnique({
       where: { id },
     });
@@ -32,7 +31,6 @@ export async function updateRole(data: UpdateRoleInput) {
       return { error: "Role not found" };
     }
 
-    // Check if new name conflicts with another role
     const nameConflict = await prisma.role.findFirst({
       where: {
         name: name.trim(),
@@ -47,14 +45,12 @@ export async function updateRole(data: UpdateRoleInput) {
       };
     }
 
-    // Use transaction to ensure atomicity
     const role = await prisma.$transaction(async (tx) => {
-      // Delete existing role permissions
+      
       await tx.rolePermission.deleteMany({
         where: { roleId: id },
       });
 
-      // Update role and create new permissions
       return await tx.role.update({
         where: { id },
         data: {
@@ -76,7 +72,6 @@ export async function updateRole(data: UpdateRoleInput) {
       });
     });
 
-    // Revalidate the cache for role-related pages
     revalidatePath("/roles");
     revalidatePath(`/roles/${id}`);
 

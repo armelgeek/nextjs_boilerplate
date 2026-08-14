@@ -15,7 +15,6 @@ export async function changePassword(formData: FormData) {
     const newPassword = formData.get('newPassword') as string;
     const confirmPassword = formData.get('confirmPassword') as string;
 
-    // Validate inputs
     if (!currentPassword || !newPassword || !confirmPassword) {
       return { error: 'All fields are required' };
     }
@@ -28,7 +27,6 @@ export async function changePassword(formData: FormData) {
       return { error: 'Password must be at least 8 characters long' };
     }
 
-    // Use Better Auth's change password API
     const response = await auth.api.changePassword({
       body: {
         newPassword,
@@ -45,11 +43,9 @@ export async function changePassword(formData: FormData) {
     return { success: true, message: 'Password changed successfully' };
   } catch (error: unknown) {
     console.error('Failed to change password:', error);
-    
-    // Better Auth throws errors with specific messages
+
     const errorMessage = error instanceof Error ? error.message : String(error);
-    
-    // Handle common error cases
+
     if (errorMessage.includes('Invalid password') || errorMessage.includes('incorrect')) {
       return { error: 'Current password is incorrect' };
     }

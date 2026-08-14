@@ -19,10 +19,8 @@ export async function updateProfile(formData: FormData) {
       return { error: 'Name is required' };
     }
 
-    // Phone is optional, so it can be empty
     const phoneValue = phone && phone.trim().length > 0 ? phone.trim() : null;
 
-    // Email changes are handled via /api/user/email-change for security
     await db.user.update({
       where: { id: session.user.id },
       data: { 

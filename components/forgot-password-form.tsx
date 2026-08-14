@@ -41,7 +41,6 @@ export function ForgotPasswordForm({
     const formData = new FormData(e.currentTarget)
     const emailValue = formData.get("email") as string
 
-    // Validate with Zod
     const validation = emailSchema.safeParse({ email: emailValue })
 
     if (!validation.success) {

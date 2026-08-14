@@ -50,7 +50,6 @@ export function ProfileForm({ user }: ProfileFormProps) {
     phone: (user.phone || undefined) as Value | undefined,
   });
 
-  // Email change state
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [newEmail, setNewEmail] = useState("");
   const [isEmailChangeLoading, setIsEmailChangeLoading] = useState(false);

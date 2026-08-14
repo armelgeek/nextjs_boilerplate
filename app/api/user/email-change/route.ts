@@ -45,7 +45,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if email is already taken
     const existingUser = await prisma.user.findUnique({
       where: { email: normalizedEmail },
     });
@@ -57,15 +56,12 @@ export async function POST(request: Request) {
       );
     }
 
-    // Invalidate any previous pending requests for this user
     await prisma.emailChangeRequest.deleteMany({
       where: { userId: session.user.id },
     });
 
-    // Generate secure token
     const token = crypto.randomBytes(32).toString("hex");
 
-    // Create email change request
     await prisma.emailChangeRequest.create({
       data: {
         userId: session.user.id,
@@ -81,7 +77,6 @@ export async function POST(request: Request) {
     const emailService = new EmailService();
     const userName = session.user.name || session.user.email.split("@")[0];
 
-    // Send verification email to NEW address
     await emailService.sendEmail({
       type: "email_change_verification",
       recipients: [normalizedEmail],
@@ -94,7 +89,6 @@ export async function POST(request: Request) {
       },
     });
 
-    // Send notification to OLD address
     await emailService.sendEmail({
       type: "email_change_notification",
       recipients: [session.user.email],

@@ -3,10 +3,6 @@
 import { getSession } from './auth-helpers';
 import { hasPermission } from './permissions';
 
-/**
- * Check if current user has permission without redirecting
- * Returns the permission status for client-side checks
- */
 export async function checkPermissionAction(
   resource: string,
   action: string

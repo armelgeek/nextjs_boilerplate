@@ -5,7 +5,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
   const now = new Date();
 
-  // Fetch published blog posts for dynamic sitemap entries
   let blogEntries: MetadataRoute.Sitemap = [];
   try {
     const posts = await prisma.blog.findMany({
@@ -20,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
   } catch {
-    // Database unavailable at build time — skip blog entries
+    
   }
 
   return [

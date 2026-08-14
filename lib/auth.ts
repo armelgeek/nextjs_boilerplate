@@ -8,7 +8,6 @@ import { appConfig } from "./config";
 const isTwoFactorEnabled = process.env.NEXT_PUBLIC_ENABLE_TWO_FACTOR !== "false";
 const isEmailVerificationEnabled = process.env.NEXT_PUBLIC_ENABLE_EMAIL_VERIFICATION !== "false";
 
-// Track newly created users who need a welcome email after verification
 const pendingWelcomeEmails = new Set<string>();
 
 export const auth = betterAuth({
@@ -104,8 +103,8 @@ export const auth = betterAuth({
     },
   },
   session: {
-    expiresIn: 60 * 60 * 24 * 7, // 7 days
-    updateAge: 60 * 60 * 24, // 1 day (every 1 day the session expiration is updated)
+    expiresIn: 60 * 60 * 24 * 7, 
+    updateAge: 60 * 60 * 24, 
   },
   secret: process.env.BETTER_AUTH_SECRET,
   trustedOrigins: [
@@ -146,7 +145,7 @@ export const auth = betterAuth({
             });
             console.log('✅ [Auth] Sign-in OTP sent successfully');
           } else {
-            // for password reset
+            
             console.log('📧 [Auth] Sending password reset OTP to:', email);
             await emailService.sendEmail({
               recipients: [email],
@@ -166,7 +165,7 @@ export const auth = betterAuth({
         }
       },
       otpLength: 6,
-      expiresIn: 300, // 5 minutes
+      expiresIn: 300, 
       sendVerificationOnSignUp: true,
       disableSignUp: false,
     }),

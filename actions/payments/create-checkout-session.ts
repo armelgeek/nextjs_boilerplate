@@ -29,7 +29,6 @@ export const createCheckoutSession = async (planId: string) => {
       return { error: "Authentication required" };
     }
 
-    // Validate plan ID format
     if (!planId || typeof planId !== "string") {
       return { error: "Invalid plan" };
     }
@@ -58,7 +57,6 @@ export const createCheckoutSession = async (planId: string) => {
       session.user.email
     );
 
-    // Create idempotency key for Stripe API call
     const idempotencyKey = `checkout_${session.user.id}_${planId}_${Date.now()}`;
 
     const checkoutSession = await stripe.checkout.sessions.create(
@@ -114,8 +112,7 @@ export const createCheckoutSession = async (planId: string) => {
         metadata: { planId },
       }
     );
-    
-    // Return generic error message to client
+
     return { error: "Unable to process request" };
   }
 };

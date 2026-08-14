@@ -38,7 +38,6 @@ export default function NewBlogPage() {
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
 
-  // Auto-generate slug from title
   const handleTitleChange = (value: string) => {
     setTitle(value);
     if (!slug) {
@@ -71,7 +70,6 @@ export default function NewBlogPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate using schema
     const validation = schema.safeParse({
       title,
       slug,
@@ -118,7 +116,7 @@ export default function NewBlogPage() {
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-          {/* Breadcrumb */}
+          {}
           <div className="px-4 lg:px-6">
             <Breadcrumb>
               <BreadcrumbList>
@@ -137,7 +135,7 @@ export default function NewBlogPage() {
             </Breadcrumb>
           </div>
 
-          {/* Header and Content */}
+          {}
           <div className="px-4 lg:px-6">
             <div className="mb-6 flex items-center justify-between">
               <div>
@@ -153,7 +151,7 @@ export default function NewBlogPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="w-full space-y-6">
-              {/* Basic Information */}
+              {}
               <div className="space-y-4 p-6 border rounded-lg">
                 <h2 className="text-lg font-semibold">Basic Information</h2>
 
@@ -248,7 +246,7 @@ export default function NewBlogPage() {
                 </div>
               </div>
 
-              {/* Content */}
+              {}
               <div className="space-y-4 p-6 border rounded-lg">
                 <h2 className="text-lg font-semibold">
                   Content <span className="text-red-500">*</span>
@@ -260,7 +258,7 @@ export default function NewBlogPage() {
                 />
               </div>
 
-              {/* Publishing Options */}
+              {}
               <div className="space-y-4 p-6 border rounded-lg">
                 <h2 className="text-lg font-semibold">Publishing Options</h2>
 
@@ -279,7 +277,7 @@ export default function NewBlogPage() {
                 </p>
               </div>
 
-              {/* Submit Button */}
+              {}
               <div className="flex justify-end gap-2">
                 <Button
                   type="button"

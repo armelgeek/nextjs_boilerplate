@@ -43,7 +43,7 @@ export function LoginForm({
   const [otp, setOtp] = useState("")
   const [lastResendTime, setLastResendTime] = useState<number>(0)
   const [showPassword, setShowPassword] = useState(false)
-  const RESEND_COOLDOWN = 60000 // 60 seconds
+  const RESEND_COOLDOWN = 60000 
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -54,7 +54,6 @@ export function LoginForm({
     const emailValue = formData.get("email") as string
     const password = formData.get("password") as string
 
-    // Validate with Zod
     const validation = loginSchema.safeParse({ email: emailValue, password })
 
     if (!validation.success) {
@@ -76,10 +75,10 @@ export function LoginForm({
       })
 
       if (error) {
-        // Check if error is due to unverified email
+        
         if (error.message?.toLowerCase().includes("email not verified") || 
             error.message?.toLowerCase().includes("verify")) {
-          // Send OTP and show verification screen
+          
           setEmail(emailValue)
           await handleSendOtp(emailValue)
           setShowOtpVerification(true)
@@ -92,7 +91,6 @@ export function LoginForm({
         return
       }
 
-      // Better Auth sets twoFactorRedirect when 2FA is required after credential check
       if ((data as any)?.twoFactorRedirect) {
         setEmail(emailValue)
         setShowTwoFactor(true)

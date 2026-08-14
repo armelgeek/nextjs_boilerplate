@@ -30,7 +30,6 @@ const verifyToken = async (token: string): Promise<VerificationResult> => {
     return { status: "expired" };
   }
 
-  // Check new email isn't taken (could have been claimed since request was made)
   const existingUser = await prisma.user.findUnique({
     where: { email: request.newEmail },
   });
@@ -40,7 +39,6 @@ const verifyToken = async (token: string): Promise<VerificationResult> => {
     return { status: "invalid" };
   }
 
-  // Update user email and mark as verified
   await prisma.user.update({
     where: { id: request.userId },
     data: {
@@ -49,7 +47,6 @@ const verifyToken = async (token: string): Promise<VerificationResult> => {
     },
   });
 
-  // Delete the request
   await prisma.emailChangeRequest.delete({ where: { id: request.id } });
 
   return { status: "success", newEmail: request.newEmail };

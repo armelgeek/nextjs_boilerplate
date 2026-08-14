@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/sidebar"
 import { Logo } from "@/components/logo"
 
-// Icon mapping to avoid passing component classes through props
 const iconMap: Record<string, Icon> = {
   dashboard: IconDashboard,
   users: IconUsers,

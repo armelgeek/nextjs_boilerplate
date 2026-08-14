@@ -11,7 +11,6 @@ export const createOrRetrieveCustomer = async (userId: string, email: string) =>
     return user.stripeCustomerId;
   }
 
-  // Create a new customer
   const customer = await stripe.customers.create({
     email,
     metadata: {
@@ -19,7 +18,6 @@ export const createOrRetrieveCustomer = async (userId: string, email: string) =>
     },
   });
 
-  // Update user with Stripe customer ID
   await prisma.user.update({
     where: { id: userId },
     data: { stripeCustomerId: customer.id },

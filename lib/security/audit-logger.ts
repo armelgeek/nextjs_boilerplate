@@ -1,12 +1,9 @@
-/**
- * Audit logger for payment and security events
- * Provides structured logging for compliance and security monitoring
- */
+
 
 import { prisma } from "@/lib/prisma"
 
 export enum AuditEventType {
-  // Payment Events
+  
   CHECKOUT_SESSION_CREATED = "checkout_session_created",
   CHECKOUT_SESSION_COMPLETED = "checkout_session_completed",
   CHECKOUT_SESSION_FAILED = "checkout_session_failed",
@@ -19,7 +16,6 @@ export enum AuditEventType {
   PAYMENT_VALIDATION_FAILED = "payment_validation_failed",
   BILLING_PORTAL_ACCESSED = "billing_portal_accessed",
 
-  // Security Events
   WEBHOOK_SIGNATURE_INVALID = "webhook_signature_invalid",
   WEBHOOK_SIGNATURE_VALID = "webhook_signature_valid",
   UNAUTHORIZED_ACCESS_ATTEMPT = "unauthorized_access_attempt",
@@ -27,7 +23,6 @@ export enum AuditEventType {
   AUTHORIZATION_FAILED = "authorization_failed",
   USER_DATA_ACCESS_ATTEMPT = "user_data_access_attempt",
 
-  // Error Events
   WEBHOOK_PROCESSING_ERROR = "webhook_processing_error",
   DATABASE_ERROR = "database_error",
   STRIPE_API_ERROR = "stripe_api_error",
@@ -62,10 +57,6 @@ class AuditLogger {
   private logLevel: string = process.env.LOG_LEVEL || "info";
   private isProd: boolean = process.env.NODE_ENV === "production";
 
-  /**
-   * Log an audit event and persist it to the database.
-   * DB writes are fire-and-forget so failures never break the calling flow.
-   */
   log(entry: Omit<AuditLogEntry, "timestamp">): void {
     const logEntry: AuditLogEntry = {
       timestamp: new Date().toISOString(),
@@ -78,16 +69,11 @@ class AuditLogger {
       this.devLog(logEntry)
     }
 
-    // Persist to DB without blocking the caller
     this.persistToDatabase(logEntry).catch((err) => {
       console.error("[AuditLogger] Failed to persist log to database:", err)
     })
   }
 
-  /**
-   * Persist an audit entry to the Prisma Log model.
-   * All structured fields are serialised into the `metadata` column.
-   */
   private async persistToDatabase(entry: AuditLogEntry): Promise<void> {
     await prisma.log.create({
       data: {
@@ -109,9 +95,6 @@ class AuditLogger {
     })
   }
 
-  /**
-   * Log a payment event
-   */
   logPayment(
     eventType: AuditEventType,
     status: "success" | "failure" | "warning",
@@ -145,9 +128,6 @@ class AuditLogger {
     })
   }
 
-  /**
-   * Log a security event
-   */
   logSecurity(
     eventType: AuditEventType,
     message: string,
@@ -172,9 +152,6 @@ class AuditLogger {
     })
   }
 
-  /**
-   * Log a webhook event
-   */
   logWebhook(
     eventType: AuditEventType,
     status: "success" | "failure" | "warning",
@@ -207,9 +184,6 @@ class AuditLogger {
     })
   }
 
-  /**
-   * Development-friendly logging
-   */
   private devLog(entry: AuditLogEntry): void {
     const emoji = this.getEmoji(entry.status)
     const color = this.getColor(entry.status)
@@ -250,16 +224,15 @@ class AuditLogger {
   private getColor(status: string): string {
     switch (status) {
       case "success":
-        return "\x1b[32m" // Green
+        return "\x1b[32m" 
       case "failure":
-        return "\x1b[31m" // Red
+        return "\x1b[31m" 
       case "warning":
-        return "\x1b[33m" // Yellow
+        return "\x1b[33m" 
       default:
-        return "\x1b[36m" // Cyan
+        return "\x1b[36m" 
     }
   }
 }
 
-// Singleton instance
 export const auditLogger = new AuditLogger()

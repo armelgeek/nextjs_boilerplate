@@ -11,7 +11,6 @@ export async function getSettings() {
       orderBy: { key: 'asc' },
     });
 
-    // Transform array to key-value object for easier consumption
     const settingsObject = settings.reduce((acc: Record<string, string>, setting) => {
       acc[setting.key] = setting.value || '';
       return acc;

@@ -16,9 +16,7 @@ export default async function PaymentCancelPage({
   searchParams: Promise<{ from?: string }>;
 }) {
   const params = await searchParams;
-  
-  // Only allow access if coming from a payment flow
-  // Users shouldn't access this page directly
+
   if (!params.from || params.from !== "checkout") {
     console.warn("[CANCEL PAGE] Invalid access - redirecting to billing");
     redirect("/billing");

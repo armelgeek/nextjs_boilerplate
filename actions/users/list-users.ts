@@ -4,7 +4,7 @@ import { db } from '@/lib/db';
 import { requirePermission } from '@/lib/auth-helpers';
 
 export async function listUsers() {
-  // Check permission to read users
+  
   await requirePermission("user", "read");
 
   try {

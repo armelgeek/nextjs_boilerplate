@@ -156,7 +156,7 @@ export default function BillingClient({ subscription }: BillingClientProps) {
 
   return (
     <div className="space-y-6">
-      {/* Current Plan Card */}
+      {}
       <Card>
         <CardHeader>
           <div className="flex items-start justify-between">
@@ -178,7 +178,7 @@ export default function BillingClient({ subscription }: BillingClientProps) {
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Pricing Info */}
+          {}
           <div className="flex items-baseline gap-1">
             <DollarSign className="h-5 w-5 text-muted-foreground" />
             <span className="text-3xl font-bold">
@@ -189,7 +189,7 @@ export default function BillingClient({ subscription }: BillingClientProps) {
             </span>
           </div>
 
-          {/* Billing Period */}
+          {}
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm">
               <Calendar className="h-4 w-4 text-muted-foreground" />
@@ -202,7 +202,7 @@ export default function BillingClient({ subscription }: BillingClientProps) {
             </p>
           </div>
 
-          {/* Next Billing Date */}
+          {}
           {!subscription.cancelAtPeriodEnd && (
             <div className="rounded-lg border bg-muted/50 p-4">
               <p className="text-sm font-medium">Next billing date</p>
@@ -215,7 +215,7 @@ export default function BillingClient({ subscription }: BillingClientProps) {
             </div>
           )}
 
-          {/* Cancellation Notice */}
+          {}
           {subscription.cancelAtPeriodEnd && (
             <div className="rounded-lg border border-destructive bg-destructive/10 p-4">
               <p className="text-sm font-medium text-destructive">
@@ -229,7 +229,7 @@ export default function BillingClient({ subscription }: BillingClientProps) {
             </div>
           )}
 
-          {/* Features List */}
+          {}
           <div className="space-y-2">
             <p className="text-sm font-medium">Plan features:</p>
             <ul className="grid gap-2 sm:grid-cols-2">
@@ -244,7 +244,7 @@ export default function BillingClient({ subscription }: BillingClientProps) {
         </CardContent>
       </Card>
 
-      {/* Management Actions Card */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">

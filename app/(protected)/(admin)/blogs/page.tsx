@@ -63,7 +63,7 @@ export default function BlogsPage() {
 
   useEffect(() => {
     loadBlogs();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [currentPage, itemsPerPage, filters]);
 
   const loadBlogs = async () => {
@@ -90,15 +90,14 @@ export default function BlogsPage() {
 
   const handleFilterChange = (newFilters: BlogFilterValues) => {
     setFilters(newFilters);
-    setCurrentPage(1); // Reset to first page when filters change
+    setCurrentPage(1); 
   };
 
   const handleItemsPerPageChange = (value: string) => {
     setItemsPerPage(Number(value));
-    setCurrentPage(1); // Reset to first page when changing items per page
+    setCurrentPage(1); 
   };
 
-  // Calculate display indices
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, totalCount);
 
@@ -130,7 +129,7 @@ export default function BlogsPage() {
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-          {/* Breadcrumb */}
+          {}
           <div className="px-4 lg:px-6">
                 <Breadcrumb>
                   <BreadcrumbList>
@@ -145,7 +144,7 @@ export default function BlogsPage() {
                 </Breadcrumb>
               </div>
 
-              {/* Header and Content */}
+              {}
               <div className="px-4 lg:px-6">
                 <div className="flex items-center justify-between mb-6">
                   <div>
@@ -166,7 +165,7 @@ export default function BlogsPage() {
                   </div>
                 </div>
 
-                {/* Table */}
+                {}
                 <div className="border rounded-lg">
                   <Table>
                     <TableHeader>
@@ -254,7 +253,7 @@ export default function BlogsPage() {
                   </Table>
                 </div>
 
-                {/* Pagination Controls */}
+                {}
                 {totalCount > 0 && (
                   <div className="flex items-center justify-between px-4 py-4">
                     <div className="flex items-center gap-2">
@@ -306,7 +305,7 @@ export default function BlogsPage() {
           </div>
         </div>
 
-      {/* Delete Confirmation Dialog */}
+      {}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>

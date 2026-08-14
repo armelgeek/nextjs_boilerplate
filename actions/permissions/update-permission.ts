@@ -12,12 +12,11 @@ interface UpdatePermissionInput {
 }
 
 export async function updatePermission(data: UpdatePermissionInput) {
-  // Check permission to update permissions
+  
   await requirePermission("permission", "update");
 
   const { id, name, description, resource, action } = data;
 
-  // Validate required fields
   if (!id || !name || name.trim() === "") {
     return { error: "ID and permission name are required" };
   }
@@ -31,7 +30,7 @@ export async function updatePermission(data: UpdatePermissionInput) {
   }
 
   try {
-    // Check if permission exists
+    
     const existingPermission = await prisma.permission.findUnique({
       where: { id },
     });
@@ -40,7 +39,6 @@ export async function updatePermission(data: UpdatePermissionInput) {
       return { error: "Permission not found" };
     }
 
-    // Check if new name conflicts with another permission
     const nameConflict = await prisma.permission.findFirst({
       where: {
         name: name.trim(),
@@ -55,7 +53,6 @@ export async function updatePermission(data: UpdatePermissionInput) {
       };
     }
 
-    // Check if resource-action combination conflicts with another permission
     const resourceActionConflict = await prisma.permission.findFirst({
       where: {
         resource: resource.trim(),
@@ -70,7 +67,6 @@ export async function updatePermission(data: UpdatePermissionInput) {
       };
     }
 
-    // Update permission
     const permission = await prisma.permission.update({
       where: { id },
       data: {

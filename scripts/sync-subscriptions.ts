@@ -16,7 +16,6 @@ async function main() {
   console.log("\n🔄 Stripe Subscription Sync Tool\n");
   console.log("This tool will sync subscriptions from Stripe to your database.\n");
 
-  // Get all users
   const users = await prisma.user.findMany({
     select: {
       id: true,
@@ -63,7 +62,6 @@ async function main() {
     try {
       console.log(`Checking Stripe for ${user.name}...`);
 
-      // Get subscriptions from Stripe
       const stripeSubscriptions = await stripe.subscriptions.list({
         customer: user.stripeCustomerId,
         limit: 10,
@@ -75,7 +73,7 @@ async function main() {
       }
 
       for (const stripeSub of stripeSubscriptions.data) {
-        // Check if subscription already exists in database
+        
         const existingSub = await prisma.subscription.findFirst({
           where: { stripeSubscriptionId: stripeSub.id },
         });
@@ -85,10 +83,8 @@ async function main() {
           continue;
         }
 
-        // Get the price ID from the subscription
         const priceId = stripeSub.items.data[0]?.price.id;
 
-        // Find the plan in our database
         const plan = await prisma.plan.findFirst({
           where: { stripePriceId: priceId },
         });

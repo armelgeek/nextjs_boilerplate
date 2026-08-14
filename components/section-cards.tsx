@@ -19,7 +19,7 @@ interface SectionCardsProps {
 }
 
 export function SectionCards({ stats }: SectionCardsProps) {
-  // Payment amounts are stored in cents — convert to dollars
+  
   const totalRevenueDollars = ((stats?.totalRevenue ?? 0) / 100).toLocaleString("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,

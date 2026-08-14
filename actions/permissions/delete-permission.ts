@@ -4,7 +4,7 @@ import { db as prisma } from "@/lib/db";
 import { requirePermission } from "@/lib/auth-helpers";
 
 export async function deletePermission(id: string) {
-  // Check permission to delete permissions
+  
   await requirePermission("permission", "delete");
 
   if (!id) {
@@ -12,7 +12,7 @@ export async function deletePermission(id: string) {
   }
 
   try {
-    // Check if permission exists
+    
     const permission = await prisma.permission.findUnique({
       where: { id },
     });
@@ -21,7 +21,6 @@ export async function deletePermission(id: string) {
       return { error: "Permission not found" };
     }
 
-    // Check if permission is assigned to any roles
     const rolesWithPermission = await prisma.rolePermission.count({
       where: { permissionId: id },
     });
@@ -32,7 +31,6 @@ export async function deletePermission(id: string) {
       };
     }
 
-    // Delete permission
     await prisma.permission.delete({
       where: { id },
     });

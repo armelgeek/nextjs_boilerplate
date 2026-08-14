@@ -1,7 +1,4 @@
-/**
- * Webhook event deduplication and replay attack prevention
- * Stores processed webhook event IDs to prevent duplicate processing
- */
+
 
 interface ProcessedEvent {
   eventId: string;
@@ -12,23 +9,16 @@ interface ProcessedEvent {
 class WebhookEventStore {
   private processedEvents: Map<string, ProcessedEvent> = new Map();
   private cleanupInterval: NodeJS.Timeout;
-  private readonly MAX_AGE_MS = 24 * 60 * 60 * 1000; // 24 hours
-  private readonly CLEANUP_INTERVAL_MS = 60 * 60 * 1000; // 1 hour
+  private readonly MAX_AGE_MS = 24 * 60 * 60 * 1000; 
+  private readonly CLEANUP_INTERVAL_MS = 60 * 60 * 1000; 
 
   constructor() {
-    // Cleanup old events periodically
+    
     this.cleanupInterval = setInterval(() => {
       this.cleanup();
     }, this.CLEANUP_INTERVAL_MS);
   }
 
-  /**
-   * Check if an event has already been processed
-   * @param eventId - Stripe event ID
-   * @param eventType - Type of the event
-   * @param eventCreatedTimestamp - When the event was created (Unix timestamp)
-   * @returns true if event is new and should be processed
-   */
   shouldProcess(
     eventId: string,
     eventType: string,
@@ -37,7 +27,7 @@ class WebhookEventStore {
     shouldProcess: boolean;
     reason?: string;
   } {
-    // Check if event is too old (potential replay attack)
+    
     const eventAge = Date.now() - eventCreatedTimestamp * 1000;
     if (eventAge > this.MAX_AGE_MS) {
       return {
@@ -46,7 +36,6 @@ class WebhookEventStore {
       };
     }
 
-    // Check if already processed
     const existing = this.processedEvents.get(eventId);
     if (existing) {
       return {
@@ -58,9 +47,6 @@ class WebhookEventStore {
     return { shouldProcess: true };
   }
 
-  /**
-   * Mark an event as processed
-   */
   markProcessed(eventId: string, eventType: string): void {
     this.processedEvents.set(eventId, {
       eventId,
@@ -69,9 +55,6 @@ class WebhookEventStore {
     });
   }
 
-  /**
-   * Remove old processed events to prevent memory leaks
-   */
   private cleanup(): void {
     const now = Date.now();
     const cutoff = now - this.MAX_AGE_MS;
@@ -91,9 +74,6 @@ class WebhookEventStore {
     }
   }
 
-  /**
-   * Get statistics about processed events
-   */
   getStats(): {
     totalProcessed: number;
     oldestEvent: string | null;
@@ -126,28 +106,18 @@ class WebhookEventStore {
     };
   }
 
-  /**
-   * Clear all processed events (for testing)
-   */
   clear(): void {
     this.processedEvents.clear();
   }
 
-  /**
-   * Destroy the store and cleanup
-   */
   destroy(): void {
     clearInterval(this.cleanupInterval);
     this.processedEvents.clear();
   }
 }
 
-// Singleton instance
 export const webhookEventStore = new WebhookEventStore();
 
-/**
- * Helper function to create event processing guard
- */
 export function createEventGuard(eventId: string, eventType: string, created: number) {
   const check = webhookEventStore.shouldProcess(eventId, eventType, created);
 

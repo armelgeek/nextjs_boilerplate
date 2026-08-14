@@ -6,7 +6,7 @@ import { headers } from "next/headers";
 import { requirePermission } from "@/lib/auth-helpers";
 
 export async function listPermissions() {
-  // Check permission to read permissions
+  
   await requirePermission("permission", "read");
 
   try {

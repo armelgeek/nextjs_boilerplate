@@ -23,13 +23,11 @@ export default async function PaymentSuccessPage({
   console.log("[SUCCESS PAGE] Session ID from URL:", sessionId);
   console.log("[SUCCESS PAGE] All search params:", params);
 
-  // Redirect if no session_id - user shouldn't be here without completing payment
   if (!sessionId) {
     console.warn("[SUCCESS PAGE] No session_id provided - redirecting to billing");
     redirect("/billing");
   }
 
-  // Verify and create subscription if the session_id is provided
   if (sessionId) {
     console.log("[SUCCESS PAGE] Calling verifyCheckoutSession with sessionId:", sessionId);
     const result = await verifyCheckoutSession(sessionId);
@@ -37,8 +35,7 @@ export default async function PaymentSuccessPage({
     
     if (result.error) {
       console.error("[SUCCESS PAGE] Error from verifyCheckoutSession:", result.error);
-      // Don't redirect on error, still show success message
-      // The webhook might handle it, or the user can check billing page
+
     } else if (result.success) {
       console.log("[SUCCESS PAGE] Subscription verification successful!");
       if (result.alreadyExists) {

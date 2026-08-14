@@ -26,7 +26,6 @@ export const resumeSubscription = async (subscriptionId: string) => {
       return { error: "Subscription not found" };
     }
 
-    // Resume subscription by removing cancel_at_period_end
     await stripe.subscriptions.update(subscription.stripeSubscriptionId, {
       cancel_at_period_end: false,
     });

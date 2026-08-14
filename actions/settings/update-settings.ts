@@ -12,7 +12,6 @@ export async function updateSettings(settings: Record<string, string> | { [key: 
       return { error: 'Invalid settings data' };
     }
 
-    // Update or create each setting
     const operations = Object.entries(settings).map(([key, value]) => {
       return db.setting.upsert({
         where: { key },

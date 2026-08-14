@@ -30,7 +30,7 @@ export default function NewAdminPage() {
 		email: z.string().email("Invalid email address"),
 		phone: z.string()
 			.refine((val) => {
-				if (!val || val.length === 0) return true; // Phone is optional
+				if (!val || val.length === 0) return true; 
 				try {
 					return isValidPhoneNumber(val);
 				} catch {
@@ -77,7 +77,6 @@ export default function NewAdminPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate using schema
     const validation = schema.safeParse({
       name,
       email,
@@ -123,7 +122,7 @@ export default function NewAdminPage() {
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-          {/* Breadcrumb */}
+          {}
           <div className="px-4 lg:px-6">
                 <Breadcrumb>
                   <BreadcrumbList>
@@ -142,7 +141,7 @@ export default function NewAdminPage() {
                 </Breadcrumb>
               </div>
 
-              {/* Header and Content */}
+              {}
               <div className="px-4 lg:px-6">
                 <div className="mb-6 flex items-center justify-between">
                   <div>
@@ -158,7 +157,7 @@ export default function NewAdminPage() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="w-full space-y-6">
-                  {/* General Information */}
+                  {}
                   <div className="space-y-4 p-6 border rounded-lg">
                     <h2 className="text-lg font-semibold">Account Information</h2>
 
@@ -276,7 +275,7 @@ export default function NewAdminPage() {
                     </div>
                   </div>
 
-                  {/* Actions */}
+                  {}
                   <div className="flex gap-4">
                     <Button
                       type="button"

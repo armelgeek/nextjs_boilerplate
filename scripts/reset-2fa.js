@@ -1,4 +1,4 @@
-// Reset 2FA state for a user (for test purposes)
+
 require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
 const { PrismaPg } = require('@prisma/adapter-pg');

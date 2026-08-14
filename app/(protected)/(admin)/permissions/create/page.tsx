@@ -76,11 +76,9 @@ export default function CreatePermissionPage() {
     }
   };
 
-  // Auto-generate permission name based on resource and action
   const handleResourceOrActionChange = (field: 'resource' | 'action', value: string) => {
     const newFormData = { ...formData, [field]: value };
-    
-    // Auto-generate name if both resource and action are set
+
     if (newFormData.resource && newFormData.action) {
       newFormData.name = `${newFormData.resource}:${newFormData.action}`;
     }
@@ -88,7 +86,6 @@ export default function CreatePermissionPage() {
     setFormData(newFormData);
   };
 
-  // Extract unique resources and actions from all permissions
   const availableResources = Array.from(new Set(allPermissions.map(p => p.resource))).sort();
   const availableActions = Array.from(new Set(allPermissions.map(p => p.action))).sort();
 

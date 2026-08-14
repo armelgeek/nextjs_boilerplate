@@ -4,7 +4,7 @@ import { db as prisma } from "@/lib/db";
 import { requirePermission } from "@/lib/auth-helpers";
 
 export async function deleteRole(id: string) {
-  // Check permission to delete roles
+  
   await requirePermission("role", "delete");
 
   if (!id) {
@@ -12,7 +12,7 @@ export async function deleteRole(id: string) {
   }
 
   try {
-    // Check if role exists
+    
     const role = await prisma.role.findUnique({
       where: { id },
     });
@@ -21,14 +21,12 @@ export async function deleteRole(id: string) {
       return { error: "Role not found" };
     }
 
-    // Prevent deletion of system roles
     if (role.isSystem) {
       return {
         error: "Cannot delete system roles (user, admin, super_admin).",
       };
     }
 
-    // Check if role is assigned to any users
     const adminsWithRole = await prisma.user.count({
       where: { roleId: id },
     });
@@ -39,7 +37,6 @@ export async function deleteRole(id: string) {
       };
     }
 
-    // Delete role (cascade will delete role permissions)
     await prisma.role.delete({
       where: { id },
     });

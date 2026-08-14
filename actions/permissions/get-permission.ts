@@ -4,7 +4,7 @@ import { db as prisma } from "@/lib/db";
 import { requirePermission } from "@/lib/auth-helpers";
 
 export async function getPermission(id: string) {
-  // Check permission to read permissions
+  
   await requirePermission("permission", "read");
 
   if (!id) {

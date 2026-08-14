@@ -6,10 +6,9 @@ import crypto from "crypto"
 import { createRateLimitMiddleware } from "@/lib/security/rate-limiter"
 import { auditLogger, AuditEventType } from "@/lib/security/audit-logger"
 
-// Rate limiters per the issue recommendations
-const listRateLimiter = createRateLimitMiddleware(100, 60 * 60 * 1000)   // 100 requests/hour
-const createRateLimiter = createRateLimitMiddleware(10, 60 * 60 * 1000)  // 10 requests/hour
-const deleteRateLimiter = createRateLimitMiddleware(20, 60 * 60 * 1000)  // 20 requests/hour
+const listRateLimiter = createRateLimitMiddleware(100, 60 * 60 * 1000)   
+const createRateLimiter = createRateLimitMiddleware(10, 60 * 60 * 1000)  
+const deleteRateLimiter = createRateLimitMiddleware(20, 60 * 60 * 1000)  
 
 export async function GET() {
   const headersList = await headers()

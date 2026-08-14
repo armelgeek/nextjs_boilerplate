@@ -11,7 +11,7 @@ async function createBlogPermissions() {
   console.log('Starting blog permissions creation...');
 
   try {
-    // Define blog permissions
+    
     const blogPermissions = [
       { resource: 'blog', action: 'create', description: 'Create new blog posts' },
       { resource: 'blog', action: 'read', description: 'View blog posts' },
@@ -46,7 +46,6 @@ async function createBlogPermissions() {
       }
     }
 
-    // Get all blog permissions
     const createdPermissions = await prisma.permission.findMany({
       where: {
         resource: 'blog',
@@ -54,8 +53,7 @@ async function createBlogPermissions() {
     });
 
     console.log(`\nBlog permissions created/verified: ${createdPermissions.length}`);
-    
-    // Optionally: Assign blog permissions to admin role
+
     const adminRole = await prisma.role.findFirst({
       where: {
         OR: [

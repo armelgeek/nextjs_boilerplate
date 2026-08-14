@@ -50,7 +50,6 @@ export const PricingCards = ({ plans, isLoggedIn }: PricingCardsProps) => {
       return;
     }
 
-    // Check if using placeholder Stripe IDs
     const plan = filteredPlans.find(p => p.id === planId);
     if (plan?.stripePriceId.startsWith("price_") && !plan.stripePriceId.includes("_1")) {
       toast.error("Payment system is being configured. Please try again later.");
@@ -80,7 +79,7 @@ export const PricingCards = ({ plans, isLoggedIn }: PricingCardsProps) => {
 
   return (
     <div className="space-y-10">
-      {/* Interval Toggle — Pill style */}
+      {}
       <div className="flex items-center justify-center">
         <div className="inline-flex items-center rounded-full border bg-muted/50 p-1">
           <button
@@ -111,7 +110,7 @@ export const PricingCards = ({ plans, isLoggedIn }: PricingCardsProps) => {
         </div>
       </div>
 
-      {/* Pricing Cards */}
+      {}
       <div className="grid gap-8 md:grid-cols-3">
         {filteredPlans.map((plan) => (
           <Card
