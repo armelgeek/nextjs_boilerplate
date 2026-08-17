@@ -551,6 +551,37 @@ export async function updateFeature(id: string, data: any) {
 }
 ```
 
+## 📋 Form Design Guidelines
+
+### Always use:
+- **Multi-column layout** for forms with 5+ fields: use `grid grid-cols-1 md:grid-cols-2` to split fields side-by-side on medium+ screens
+- **Card background**: wrap form sections in `<div className="space-y-4 p-6 border rounded-lg bg-card">`
+- **Proper spacing**: `gap-4` between fields, `space-y-6` between sections
+- **Helper text**: use `<p className="text-xs text-muted-foreground">` below optional/special fields
+
+### Example:
+```typescript
+<div className="space-y-4 p-6 border rounded-lg bg-card">
+  <h2 className="text-lg font-semibold">Section Title</h2>
+  <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
+    {/* Each field takes full width on mobile, 50% on medium+ */}
+    <div className="grid gap-2">
+      <Label>Field 1</Label>
+      <Input />
+    </div>
+    <div className="grid gap-2">
+      <Label>Field 2</Label>
+      <Input />
+    </div>
+    {/* Full width on both */}
+    <div className="col-span-1 md:col-span-2 grid gap-2">
+      <Label>Full Width Field</Label>
+      <Input />
+    </div>
+  </div>
+</div>
+```
+
 ## 📖 Module Documentation
 
 - `lib/README.md` - Overview of all lib modules

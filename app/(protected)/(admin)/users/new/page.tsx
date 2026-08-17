@@ -123,7 +123,7 @@ export default function NewAdminPage() {
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
           {}
-          <div className="px-4 lg:px-6">
+          <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
                 <Breadcrumb>
                   <BreadcrumbList>
                     <BreadcrumbItem>
@@ -142,7 +142,7 @@ export default function NewAdminPage() {
               </div>
 
               {}
-              <div className="px-4 lg:px-6">
+              <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
                 <div className="mb-6 flex items-center justify-between">
                   <div>
                     <h1 className="text-2xl font-semibold">Create New User</h1>
@@ -158,10 +158,10 @@ export default function NewAdminPage() {
 
                 <form onSubmit={handleSubmit} className="w-full space-y-6">
                   {}
-                  <div className="space-y-4 p-6 border rounded-lg">
+                  <div className="space-y-4 p-6 border rounded-lg bg-card">
                     <h2 className="text-lg font-semibold">Account Information</h2>
 
-                    <div className="grid gap-4">
+                    <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
                       <div className="grid gap-2">
                         <Label htmlFor="name">
                           Name <span className="text-red-500">*</span>
@@ -259,7 +259,7 @@ export default function NewAdminPage() {
                         />
                       </div>
 
-                      <div className="flex items-center justify-between space-x-2">
+                      <div className="col-span-1 md:col-span-2 flex items-center justify-between space-x-2">
                         <div className="space-y-0.5">
                           <Label htmlFor="isAdmin">Admin Access</Label>
                           <p className="text-xs text-muted-foreground">

@@ -1,13 +1,9 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { isUserAdmin } from "@/lib/auth-utils";
-import { ProfileForm } from '@/components/molecules/forms/profile-form';
-import { PasswordChangeForm } from '@/components/molecules/forms/password-change-form';
-import { TwoFactorSettings } from '@/components/templates/two-factor-settings';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Header } from '@/components/organisms/header/header';
 import { Footer } from '@/components/organisms/footer/footer';
+import { ProfileSidebar } from '@/components/organisms/profile-sidebar';
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = 'force-dynamic';
@@ -35,54 +31,17 @@ export default async function ProfilePage() {
     <div className="flex min-h-screen flex-col">
       <Header user={session?.user} isAdmin={isAdmin} />
 
-      <div className="container max-w-4xl mx-auto flex-1 py-10 px-4">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight">Profile Settings</h1>
-          <p className="text-muted-foreground mt-2">
-            Manage your account settings and preferences
-          </p>
+      <div className="flex-1">
+        <div className="container mx-auto py-10 px-4 sm:px-6 md:px-8 lg:px-12">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold tracking-tight">Profile Settings</h1>
+            <p className="text-muted-foreground mt-2">
+              Manage your account settings and preferences
+            </p>
+          </div>
+
+          <ProfileSidebar userData={userData} />
         </div>
-
-        <Tabs defaultValue="profile" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="profile">Profile</TabsTrigger>
-            <TabsTrigger value="security">Security</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="profile" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Profile Information</CardTitle>
-                <CardDescription>
-                  Update your profile details and personal information
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ProfileForm user={{
-                  ...userData!,
-                  phone: userData!.phone || "",
-                }} />
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="security" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Change Password</CardTitle>
-                <CardDescription>
-                  Update your password to keep your account secure
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <PasswordChangeForm />
-              </CardContent>
-            </Card>
-            {process.env.NEXT_PUBLIC_ENABLE_TWO_FACTOR !== "false" && (
-              <TwoFactorSettings />
-            )}
-          </TabsContent>
-        </Tabs>
       </div>
 
       <Footer />

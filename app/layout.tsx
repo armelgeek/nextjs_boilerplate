@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, DM_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieConsent } from '@/components/molecules/dialogs/cookie-consent';
 import { PostHogConsent } from '@/components/providers/posthog-provider';
@@ -7,16 +7,17 @@ import { ThemeProvider } from '@/components/providers/theme-provider';
 import { appConfig } from "@/lib/config";
 import "./globals.css";
 
-const outfit = Outfit({
+const jakarta = Plus_Jakarta_Sans({
   variable: "--font-outfit",
   subsets: ["latin"],
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
-const dmMono = DM_Mono({
+const ibmMono = IBM_Plex_Mono({
   variable: "--font-dm-mono",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -86,7 +87,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${outfit.variable} ${dmMono.variable} antialiased`}
+        className={`${jakarta.variable} ${ibmMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
